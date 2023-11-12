@@ -17,6 +17,7 @@ import Bata from "./screens/Bata";
 import History from "./screens/History";
 import Faqs from "./screens/Faq";
 import Pembelian from "./screens/Pembelian";
+import Galvalum from "./screens/Galvalum";
 
 
 Ionicons.loadFont();
@@ -134,6 +135,11 @@ const App = () => {
            <Stack.Screen
             name="Register"
             component={Register}
+            options={noHead}
+          />
+            <Stack.Screen
+            name="Galvalum"
+            component={Galvalum}
             options={noHead}
           />
         </Stack.Navigator>
