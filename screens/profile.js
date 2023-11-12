@@ -20,7 +20,7 @@ const Profile = () => {
           borderColor={'white'}
             />
       <Box ml={5}>
-        <Text fontSize={24} fontWeight={'semibold'} color={"white"}> Miftah Syukron</Text>
+        <Text fontSize={24} fontWeight={'semibold'} color={"white"}> Mifta Syukron</Text>
         <Box backgroundColor={'yellow.500'} w={'115px'} borderRadius={30} mb={'20px'}>
         <Text fontSize={14}  color={"white"} textAlign={"center"}>Member VIP</Text>
         </Box>  
