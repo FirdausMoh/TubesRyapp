@@ -1,4 +1,4 @@
-import { Heading, Image, Text, FlatList, Box } from "native-base";
+import { Heading, Image, FlatList, Box } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenTop } from "../components";
