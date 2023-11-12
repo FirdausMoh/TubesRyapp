@@ -7,6 +7,7 @@ import Profile from "./screens/profile"
 import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
+import Login from "./screens/login";
 import DetailProduct from "./screens/detailproduct";
 
 
@@ -81,6 +82,11 @@ const App = () => {
           <Stack.Screen
             name="Detail Product"
             component={DetailProduct}
+            options={noHead}
+          />
+           <Stack.Screen
+            name="Login"
+            component={Login}
             options={noHead}
           />
         </Stack.Navigator>
