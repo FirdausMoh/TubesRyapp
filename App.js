@@ -8,6 +8,7 @@ import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
 import Login from "./screens/login";
+import Register from "./screens/register";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
@@ -16,7 +17,9 @@ import Bata from "./screens/Bata";
 import History from "./screens/History";
 import Faqs from "./screens/Faq";
 import Pembelian from "./screens/Pembelian";
+import Galvalum from "./screens/Galvalum";
 import TransaksiBerhasil from "./screens/TransaksiBerhasil";
+
 
 
 Ionicons.loadFont();
@@ -134,6 +137,16 @@ const App = () => {
           <Stack.Screen
             name="Pembelian"
             component={Pembelian}
+            options={noHead}
+          />
+           <Stack.Screen
+            name="Register"
+            component={Register}
+            options={noHead}
+          />
+            <Stack.Screen
+            name="Galvalum"
+            component={Galvalum}
             options={noHead}
           />
         </Stack.Navigator>
