@@ -7,6 +7,7 @@ import Profile from "./screens/profile"
 import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
+import Login from "./screens/login";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
@@ -87,6 +88,9 @@ const App = () => {
             component={DetailProduct}
             options={noHead}
           />
+           <Stack.Screen
+            name="Login"
+            component={Login}
           <Stack.Screen
             name="AboutUs"
             component={Aboutus}
