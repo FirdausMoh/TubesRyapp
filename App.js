@@ -11,6 +11,7 @@ import Login from "./screens/login";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
+import Cat from "./screens/Cat";
 import Faqs from "./screens/Faq";
 import Pembelian from "./screens/Pembelian";
 
@@ -99,6 +100,11 @@ const App = () => {
           <Stack.Screen
             name="Semen"
             component={Semen}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Cat"
+            component={Cat}
             options={noHead}
           />
           <Stack.Screen
