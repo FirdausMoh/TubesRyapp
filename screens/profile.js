@@ -1,5 +1,5 @@
-import { Heading, Center,Image, Box,Text, VStack, Button} from "native-base";
-import { TouchableOpacity, View } from "react-native";
+import { Image, Box,Text, VStack} from "native-base";
+import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const Profile = () => {
@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <>
     <VStack >
-      <Box backgroundColor={'red.600'}>
+      <Box backgroundColor={'red.600'} pt={10}>
       <Image
           source={require ("../assets/pp.jpg")}
           w="90"

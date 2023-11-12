@@ -1,10 +1,11 @@
-import { Heading, Image, FlatList, Box } from "native-base";
+import { Heading, Image, Text, FlatList } from "native-base";
+import { Box, ScrollView } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ScreenTop } from "../components";
-import data from "../dataProduk";
+import { Header, ScreenTop } from "../components";
+import dataSem from "../dataSemen";
 
-const Product = () => {
+const Semen = () => {
   const navigation = useNavigation();
   const renderitem = ({ item }) => {
     return (
@@ -30,7 +31,7 @@ const Product = () => {
             <Heading lineHeight={"3xl"} fontSize={"sm"}color={"gray.500"}>
               {item.category}
             </Heading>
-            <Heading color={'green.600'} bold fontSize={'sm'}> {item.Price}</Heading>
+            <Text color={'green.600'} bold>{item.Price}</Text>
           </Box>
         </Box>
 
@@ -40,11 +41,10 @@ const Product = () => {
 
   return (
     <>
-
-      <ScreenTop title={"Produk"} />
+      <ScreenTop title={"Semen"} navigation={"Category"}/>
       
       <FlatList
-        data={data}
+        data={dataSem}
         renderItem={renderitem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
@@ -53,5 +53,4 @@ const Product = () => {
   );
 };
 
-export default Product;
-
+export default Semen;

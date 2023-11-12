@@ -10,6 +10,13 @@ import Product from "./screens/Product";
 import Login from "./screens/login";
 import Register from "./screens/register";
 import DetailProduct from "./screens/detailproduct";
+import Aboutus from "./screens/AboutUs";
+import Semen from "./screens/Semen";
+import Cat from "./screens/Cat";
+import Bata from "./screens/Bata";
+import History from "./screens/History";
+import Faqs from "./screens/Faq";
+import Pembelian from "./screens/Pembelian";
 
 
 Ionicons.loadFont();
@@ -88,6 +95,40 @@ const App = () => {
            <Stack.Screen
             name="Login"
             component={Login}
+            />
+          <Stack.Screen
+            name="AboutUs"
+            component={Aboutus}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Semen"
+            component={Semen}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Bata"
+            component={Bata}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="History"
+            component={History}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Cat"
+            component={Cat}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Faq"
+            component={Faqs}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Pembelian"
+            component={Pembelian}
             options={noHead}
           />
            <Stack.Screen

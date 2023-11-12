@@ -1,10 +1,12 @@
-import { Heading, Image, FlatList, Box } from "native-base";
+import { Heading, Image, Text, FlatList } from "native-base";
+import { Box, ScrollView } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ScreenTop } from "../components";
-import data from "../dataProduk";
+import { Header, ScreenTop } from "../components";
+import data from "../dataBata";
 
-const Product = () => {
+
+const Bata = () => {
   const navigation = useNavigation();
   const renderitem = ({ item }) => {
     return (
@@ -15,7 +17,7 @@ const Product = () => {
         <Box
           p={"4"}
           borderBottomColor={"coolGray.300"}
-        borderBottomWidth={1}
+          borderBottomWidth={1}
           flexDirection="row"
           flex={1}
         >
@@ -30,7 +32,7 @@ const Product = () => {
             <Heading lineHeight={"3xl"} fontSize={"sm"}color={"gray.500"}>
               {item.category}
             </Heading>
-            <Heading color={'green.600'} bold fontSize={'sm'}> {item.Price}</Heading>
+            <Text color={'green.600'}>{item.Price}</Text>
           </Box>
         </Box>
 
@@ -40,8 +42,7 @@ const Product = () => {
 
   return (
     <>
-
-      <ScreenTop title={"Produk"} />
+      <ScreenTop title={'Bata'}/>
       
       <FlatList
         data={data}
@@ -53,5 +54,4 @@ const Product = () => {
   );
 };
 
-export default Product;
-
+export default Bata;
