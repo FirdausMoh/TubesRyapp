@@ -92,6 +92,7 @@ const App = () => {
            <Stack.Screen
             name="Login"
             component={Login}
+            />
           <Stack.Screen
             name="AboutUs"
             component={Aboutus}
