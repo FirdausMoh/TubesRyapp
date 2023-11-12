@@ -11,7 +11,7 @@ const Galvalum = () => {
     return (
       <TouchableOpacity
         activeOpacity={0.5}
-        onPress={() => navigation.navigate("Detail Product", { item: item })}
+        onPress={() => navigation.navigate("", { item: item })}
       >
         <Box
           p={"4"}
