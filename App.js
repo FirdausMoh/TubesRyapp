@@ -18,6 +18,8 @@ import History from "./screens/History";
 import Faqs from "./screens/Faq";
 import Pembelian from "./screens/Pembelian";
 import Galvalum from "./screens/Galvalum";
+import TransaksiBerhasil from "./screens/TransaksiBerhasil";
+
 
 
 Ionicons.loadFont();
@@ -115,6 +117,11 @@ const App = () => {
           <Stack.Screen
             name="History"
             component={History}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="TransaksiBerhasil"
+            component={TransaksiBerhasil}
             options={noHead}
           />
           <Stack.Screen
