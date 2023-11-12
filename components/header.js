@@ -14,7 +14,7 @@ const Header = ({ title, withBack = false }) => {
       <StatusBar barStyle="light" backgroundColor={trueGray900} />
       <Box bg={"white"} p={"4"} shadow={3}>
       <HStack justifyContent="space-between" alignItems="center">
-          <HStack alignItems="center">
+          <HStack >
             <Image
               source={require("../assets/JAAA.png")}
               w="100px"
@@ -22,9 +22,6 @@ const Header = ({ title, withBack = false }) => {
               alt="Logo"
               resizeMode="cover"
             />
-            <Heading color={"red.500"} marginLeft={180}>
-              {title}
-            </Heading>
           </HStack>
           <Button
             mt="2"

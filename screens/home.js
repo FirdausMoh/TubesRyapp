@@ -20,12 +20,12 @@ const HomeScreen = () => {
         />
       </Box>
       <Box>
-      <HStack>
+      <HStack justifyContent="space-between" alignItems="center">
       <Text marginLeft={3} my={5} fontSize={20} fontWeight={'semibold'}>
     Apa Yang Anda Butuhkan ?
     </Text>
     <TouchableOpacity onPress={() => navigation.navigate("Product")}>
-    <Text mx={'70px'}my={6} fontSize={14} bold color={"green.600"}>
+    <Text mr={2} my={6} fontSize={14} bold color={"green.600"}>
     Lihat Semua
     </Text>
     </TouchableOpacity>
