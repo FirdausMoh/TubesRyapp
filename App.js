@@ -10,6 +10,7 @@ import Product from "./screens/Product";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
+import Faqs from "./screens/Faq";
 
 
 Ionicons.loadFont();
@@ -93,6 +94,11 @@ const App = () => {
           <Stack.Screen
             name="Semen"
             component={Semen}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Faq"
+            component={Faqs}
             options={noHead}
           />
         </Stack.Navigator>
