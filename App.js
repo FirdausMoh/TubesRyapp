@@ -8,6 +8,7 @@ import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
 import Login from "./screens/login";
+import Register from "./screens/register";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
@@ -134,6 +135,11 @@ const App = () => {
           <Stack.Screen
             name="Pembelian"
             component={Pembelian}
+            options={noHead}
+          />
+           <Stack.Screen
+            name="Register"
+            component={Register}
             options={noHead}
           />
         </Stack.Navigator>
