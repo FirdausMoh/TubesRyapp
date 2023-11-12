@@ -1,7 +1,8 @@
-import {  Image, Text,  ScrollView, Box,View, Center, VStack, HStack} from "native-base";
+import {  Image, Text,  ScrollView, Box, Heading, Center, VStack, HStack, Link} from "native-base";
 import { Header } from "../components";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -20,11 +21,11 @@ const HomeScreen = () => {
       </Box>
       <Box>
       <HStack>
-      <Text marginTop={'3.5'} marginLeft={3} marginBottom={5} fontSize={20}>
+      <Text marginLeft={3} my={5} fontSize={20} fontWeight={'semibold'}>
     Apa Yang Anda Butuhkan ?
     </Text>
     <TouchableOpacity onPress={() => navigation.navigate("Product")}>
-    <Text mx={'70px'}my={5} fontSize={14} bold color={"green.600"}>
+    <Text mx={'70px'}my={6} fontSize={14} bold color={"green.600"}>
     Lihat Semua
     </Text>
     </TouchableOpacity>
@@ -84,19 +85,19 @@ const HomeScreen = () => {
       </ScrollView>
       </Box>
       <Center>
-      <Box backgroundColor={'gray.300'} w={'480'}>
+      <Box backgroundColor={'gray.300'} w={'full'}>
           <Center marginTop={5} marginBottom={5}>
             <Text fontWeight={'bold'} fontSize={16} color={'black'}>Kenapa harus beli di <Text bold >RYAPP</Text> ?? </Text>
-          
-          <VStack mt={5}>
+          <Box mx={3} my={5} >
+          <VStack>
             <HStack>
-              <Box backgroundColor={"white"} mr={10} mb={5} w={'180px'}h={'180px'} rounded={30}>
+              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={3} >
               <Image source={{
       uri: "https://png.pngtree.com/png-clipart/20220705/original/pngtree-vector-red-toolbox-with-hand-tools-png-image_8334929.png"
     }} alt="icon" size="sm" borderRadius={90} m={3}/>
                 <Text textAlign={'left'} m={1} fontWeight={"bold"} fontSize={'sm'} color={"gray.700"}>Berbagai produk dan merek bahan material</Text>
               </Box>
-              <Box backgroundColor={"white"} mr={5} mb={5} w={'180px'}h={'180px'} rounded={30}>
+              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={2}>
               <Image source={{
       uri: "https://i.pinimg.com/736x/2e/f2/f3/2ef2f3289430a49cfbd483bf44dd2f17.jpg"
     }} alt="icon" size="md" borderRadius={90} m={3}/>
@@ -104,9 +105,9 @@ const HomeScreen = () => {
               </Box>
             </HStack>
           </VStack>
-          <VStack>
+          <VStack mt={5}>
             <HStack>
-            <Box backgroundColor={"white"} mr={10} mb={5} w={'180px'}h={'180px'} rounded={30}>
+            <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={3}>
               <Image source={{
       uri: "https://png.pngtree.com/png-clipart/20201208/original/pngtree-24-hour-clock-delivery-service-png-image_5518192.jpg"
     }} alt="icon" size="sm" borderRadius={90} m={3}/>
@@ -114,7 +115,7 @@ const HomeScreen = () => {
 
 Bagi Kontraktor dan Vendor</Text>
               </Box>
-              <Box backgroundColor={"white"} mr={5} mb={5} w={'180px'}h={'180px'} rounded={30}>
+              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={2}>
               <Image source={{
       uri: "https://png.pngtree.com/png-vector/20230328/ourmid/pngtree-best-price-icon-design-vector-png-image_6673126.png"
     }} alt="icon" size="sm" borderRadius={90} m={3}/>
@@ -122,11 +123,51 @@ Bagi Kontraktor dan Vendor</Text>
               </Box>
             </HStack>
           </VStack>
+          </Box>
+
           </Center>
+      </Box>
+      <Box>
+      <VStack>
+      <Heading  my={5} ml={5} fontSize={20} textAlign={"left"}>Kontak Kami</Heading>
+      <HStack mb={5} backgroundColor={"gray.300"} borderRadius={10} shadow={3} >
+      <Image
+          source={require ("../assets/JAAA.png")}
+          w="130"
+          h="130"
+          alt="Logo"
+          resizeMode="cover"
+          m={5}
+            />
+      <Center>
+      <Box mx={1} pr={6}>
+      <VStack>
+      <HStack>
+          <Ionicons name="logo-instagram"  size={30} color='purple' />
+          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+            @suburjaya
+          </Link>
+      </HStack>
+      <HStack>
+          <Ionicons name="logo-whatsapp"  size={30} color="green"/>
+          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+            08003337221
+          </Link>
+      </HStack>
+      <HStack>
+          <Ionicons name="mail-outline"  size={30} color="red" />
+          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+            suburjaya@gmail.com
+          </Link>
+      </HStack>
+      </VStack>
+      </Box>
+      </Center>
+      </HStack>
+      </VStack>
       </Box>
       </Center>
     </VStack>
-
     </ScrollView>
     </>
   );

@@ -12,21 +12,22 @@ const Category = () => {
     </View>
     <ScrollView>
       <VStack>
-      <Box mt={5}>
-      <Heading ml={5} mb={4}>Kategori Barang</Heading>
-      
+      <Box my={5}>
+      <Heading ml={5}>Kategori Barang</Heading>
+
       <HStack alignItems={'center'} justifyContent={"center"} my={3}>
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Semen")}>
           <Center>
-          <Box shadow={5} backgroundColor={'white'} p={5} mr={10} borderRadius={30}>
+          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
           <Center>
           <Image
                 source={require ("../assets/semen.jpg")}
                 w="140"
                 h="140"
                 alt="Logo"
+                borderRadius={10}
             />
             <Text color={"gray.600"} my={1} fontSize={18}>Pilihan Semen</Text>
             </Center>
@@ -37,13 +38,14 @@ const Category = () => {
         onPress={() =>
         navigation.navigate("Cat")}>
         <Center>
-          <Box shadow={5} backgroundColor={'white'} p={5} borderRadius={30}>
+          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
           <Center>
           <Image
                 source={require ("../assets/cat.png")}
                 w="140"
                 h="140"
                 alt="Logo"
+                borderRadius={10}
             />
           <Text marginTop={1} color={"gray.600"}  my={1} fontSize={18}>Pilihan Cat</Text>
           </Center> 
@@ -52,18 +54,19 @@ const Category = () => {
         </TouchableOpacity>     
     </HStack>
 
-    <HStack alignItems={'center'} justifyContent={"center"} my={3} ml={3} >
+    <HStack alignItems={'center'} justifyContent={"center"} my={3} >
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Bata")}>
           <Center>
-          <Box shadow={5} backgroundColor={'white'} p={5} mr={10} borderRadius={30}>
+          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
           <Center>
           <Image
                 source={require ("../assets/bata.webp")}
                 w="140"
                 h="140"
                 alt="Logo"
+                borderRadius={10}
             />
             
             <Text color={"gray.600"} my={1} fontSize={18}>Pilihan Bata</Text>
@@ -75,7 +78,7 @@ const Category = () => {
         onPress={() =>
         navigation.navigate("Galvalum")}>
         <Center>
-          <Box shadow={5} backgroundColor={'white'} p={5} borderRadius={30}
+          <Box shadow={5} backgroundColor={'white'}  p={4} mx={2.5} borderRadius={30}
           >
           <Center>
           <Image
@@ -83,6 +86,7 @@ const Category = () => {
                 w="140"
                 h="140"
                 alt="Logo"
+                borderRadius={10}
             />
           
           <Text marginTop={1} color={"gray.600"}  my={1} fontSize={18}>Pilihan Galvalum</Text>
@@ -92,18 +96,19 @@ const Category = () => {
         </TouchableOpacity>     
     </HStack>
 
-    <HStack alignItems={'left'} justifyContent={"left"} my={3} ml={10}>
+    <HStack alignItems={'center'} justifyContent={"center"} my={3}>
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Product")}>
           <Center>
-          <Box shadow={5} backgroundColor={'white'} p={5} mr={10} borderRadius={30}>
+          <Box shadow={5} backgroundColor={'white'} p={4} mr={'190px'}  borderRadius={30}>
           <Center>
           <Image
                 source={require ("../assets/other.png")}
                 w="140"
                 h="140"
                 alt="Logo"
+                borderRadius={10}
             />
             
             <Text color={"gray.600"} my={1} fontSize={18}> Semua</Text>
