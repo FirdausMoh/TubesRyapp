@@ -1,20 +1,87 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { NativeBaseProvider, Text, } from "native-base";
+import { Ionicons } from '@expo/vector-icons';
+import Profile from "./screens/profile"
+import HomeScreen from "./screens/home";
+import Category from "./screens/category";
+import Product from "./screens/Product";
 
-export default function App() {
+
+Ionicons.loadFont();
+
+// Navigator Declaration
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const noHead = { headerShown: false };
+
+const Tabs = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <Tab.Navigator
+    initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color }) => {
+          let iconName;
+          switch (route.name) {
+            case "Home":
+              iconName = "home-outline";
+              break;
+            case "Profile":
+              iconName = "person-circle-outline";
+              break;
+            case "Category":
+            iconName = "menu";
+            break;
+          }
+          return (
+            <Ionicons
+              name={iconName}
+              size={28}
+              color={focused ? "black" : color}
+            />
+          );
+        },
+        tabBarIconStyle: { marginTop: 5 },
+        tabBarStyle: {
+          height: 100,
+          borderTopWidth: 0,
+        },
+        tabBarLabel: ({ children, color, focused }) => {
+          return (
+            <Text color={focused ? "black" : color} mb={2}>
+              {children}
+            </Text>
+          );
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={HomeScreen} options={noHead} />
+      <Tab.Screen name="Category" component={Category} options={noHead} />
+      <Tab.Screen name="Profile" component={Profile} options={noHead} />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    </Tab.Navigator>
+  );
+};
+
+const App = () => {
+  return (
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Tabs" component={Tabs} options={noHead} />
+
+          <Stack.Screen
+            name="Product"
+            component={Product}
+            options={noHead}
+          />
+        </Stack.Navigator>
+        
+      </NavigationContainer>
+    </NativeBaseProvider>
+  );
+};
+
+export default App;
