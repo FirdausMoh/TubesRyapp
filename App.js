@@ -7,6 +7,7 @@ import Profile from "./screens/profile"
 import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
+import DetailProduct from "./screens/detailproduct";
 
 
 Ionicons.loadFont();
@@ -75,6 +76,11 @@ const App = () => {
           <Stack.Screen
             name="Product"
             component={Product}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Detail Product"
+            component={DetailProduct}
             options={noHead}
           />
         </Stack.Navigator>
