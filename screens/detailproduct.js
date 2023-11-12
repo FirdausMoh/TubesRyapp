@@ -1,7 +1,6 @@
 import { Heading, ScrollView, Center, Text, Box, Image, Button, HStack, Divider } from "native-base";
-import { Header } from "../components";
+import { Header, ScreenTop } from "../components";
 import { useNavigation } from "@react-navigation/native";
-import HeaderCategory from "../components/HeaderCategory";
 
 
 const DetailProduct = ({ route }) => {
@@ -10,7 +9,7 @@ const DetailProduct = ({ route }) => {
 
 return (
     <ScrollView>
-    <HeaderCategory  shadow={3}/>
+    <ScreenTop  title={'Detail Produk'} shadow={3}/>
     <Center mt={5}>
     <Box m={10} shadow={3} backgroundColor={"white"} >
     <Center mt={30}>

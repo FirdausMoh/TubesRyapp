@@ -1,7 +1,7 @@
 import { Heading, Image, Text, FlatList, Box } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Header, ScreenTop } from "../components";
+import { ScreenTop } from "../components";
 import data from "../dataProduk";
 
 const Product = () => {
