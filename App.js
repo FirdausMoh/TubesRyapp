@@ -9,6 +9,10 @@ import Category from "./screens/category";
 import Product from "./screens/Product";
 import Login from "./screens/login";
 import DetailProduct from "./screens/detailproduct";
+import Aboutus from "./screens/AboutUs";
+import Semen from "./screens/Semen";
+import Faqs from "./screens/Faq";
+import Pembelian from "./screens/Pembelian";
 
 
 Ionicons.loadFont();
@@ -87,6 +91,24 @@ const App = () => {
            <Stack.Screen
             name="Login"
             component={Login}
+          <Stack.Screen
+            name="AboutUs"
+            component={Aboutus}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Semen"
+            component={Semen}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Faq"
+            component={Faqs}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Pembelian"
+            component={Pembelian}
             options={noHead}
           />
         </Stack.Navigator>
