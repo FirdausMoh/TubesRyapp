@@ -1,9 +1,13 @@
 import { Image, Box,Text, VStack} from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 const Profile = () => {
   const navigation = useNavigation();
+
+  const [memberStatus,setMemberStatus] = useState('Member VIP');
+
   return (
     <>
     <VStack >
@@ -22,7 +26,7 @@ const Profile = () => {
       <Box ml={5}>
         <Text fontSize={24} fontWeight={'semibold'} color={"white"}> Mifta Syukron</Text>
         <Box backgroundColor={'yellow.500'} w={'115px'} borderRadius={30} mb={'20px'}>
-        <Text fontSize={14}  color={"white"} textAlign={"center"}>Member VIP</Text>
+        <Text fontSize={14}  color={"white"} textAlign={"center"}>{memberStatus}</Text>
         </Box>  
       </Box>
       </Box>
