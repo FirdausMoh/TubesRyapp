@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeBaseProvider, Text, } from "native-base";
+import { Center, NativeBaseProvider, Text, } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Profile from "./screens/profile"
 import HomeScreen from "./screens/home";
@@ -14,13 +14,12 @@ import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
 import Cat from "./screens/Cat";
 import Bata from "./screens/Bata";
-import History from "./screens/History";
+import Keranjang from "./screens/Keranjang";
 import Faqs from "./screens/Faq";
 import Pembelian from "./screens/Pembelian";
 import Galvalum from "./screens/Galvalum";
 import TransaksiBerhasil from "./screens/TransaksiBerhasil";
-
-
+import { FullWindowOverlay } from "react-native-screens";
 
 Ionicons.loadFont();
 
@@ -33,16 +32,16 @@ const noHead = { headerShown: false };
 const Tabs = () => {
   return (
     <Tab.Navigator
-    initialRouteName="Home"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color }) => {
-          let iconName;
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color }) => {
+        let iconName;
+        let unfocusedColor = '#FFFFFF';
           switch (route.name) {
             case "Home":
-              iconName = "home-outline";
+              iconName = "home";
               break;
             case "Profile":
-              iconName = "person-circle-outline";
+              iconName = "person-circle";
               break;
             case "Category":
             iconName = "menu";
@@ -51,22 +50,23 @@ const Tabs = () => {
           return (
             <Ionicons
               name={iconName}
-              size={28}
-              color={focused ? "black" : color}
+              size={30}
+              color={focused ? "#006664" : unfocusedColor}
             />
           );
         },
         tabBarIconStyle: { marginTop: 5 },
         tabBarStyle: {
-          height: 100,
+          height: 50,
+          paddingBottom: 5,
           borderTopWidth: 0,
+          backgroundColor: '#373737',
+          marginVertical: 20,
+          marginHorizontal: 60,
+          borderRadius: 25,
+          position: "absolute",
         },
-        tabBarLabel: ({ children, color, focused }) => {
-          return (
-            <Text color={focused ? "black" : color} mb={2}>
-              {children}
-            </Text>
-          );
+        tabBarLabel: ({}) => {
         },
       })}
     >
@@ -82,7 +82,7 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen name="Tabs" component={Tabs} options={noHead} />
 
           <Stack.Screen
@@ -98,6 +98,7 @@ const App = () => {
            <Stack.Screen
             name="Login"
             component={Login}
+            options={noHead}
             />
           <Stack.Screen
             name="AboutUs"
@@ -115,8 +116,8 @@ const App = () => {
             options={noHead}
           />
           <Stack.Screen
-            name="History"
-            component={History}
+            name="Keranjang"
+            component={Keranjang}
             options={noHead}
           />
           <Stack.Screen

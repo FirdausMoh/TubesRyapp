@@ -10,7 +10,7 @@ const Header = ({ title, withBack = false }) => {
   const trueGray900 = "#171717";
   const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={['right', 'left', 'top']}>
       <StatusBar barStyle="light" backgroundColor={trueGray900} />
       <Box bg={"white"} p={"4"} shadow={3}>
       <HStack justifyContent="space-between" alignItems="center">
@@ -23,10 +23,11 @@ const Header = ({ title, withBack = false }) => {
               resizeMode="cover"
             />
           </HStack>
+          
           <Button
             mt="2"
             onPress={() => navigation.navigate("Login")}
-            backgroundColor={"red.600"}
+            backgroundColor={"#006664"}
           >
             <Text color={"white"}>Login</Text>
           </Button>
