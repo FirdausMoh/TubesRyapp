@@ -36,7 +36,7 @@ const Login = () => {
           <FormControl.Label><Text color={"black"} bold >Password</Text></FormControl.Label>
             <Input borderColor={"coolGray.500"} type="password" />
           </FormControl>
-          <Button mt="2"  onPress={() => navigation.navigate("Home")} backgroundColor={"red.600"}>
+          <Button mt="2"  onPress={() => navigation.navigate("Tabs")} backgroundColor={"red.600"}>
             <Text color={"white"}>Login</Text>
           </Button>
           <TouchableOpacity activeOpacity={0.5}

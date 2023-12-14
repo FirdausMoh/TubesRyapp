@@ -1,176 +1,188 @@
-import {  Image, Text,  ScrollView, Box, Heading, Center, VStack, HStack, Link} from "native-base";
-import { Header } from "../components";
-import { useNavigation } from "@react-navigation/native";
+import { Heading, Image, FlatList, Box, VStack, HStack, Text, Center, ScrollView, Link } from "native-base";
 import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Header } from "../components";
+import data from "../data";
 import { Ionicons } from "@expo/vector-icons";
+import Vstack from "native-base/src/theme/components/vstack";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  
-  return (
-    <>
+  const renderitem = ({ item }) => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate("Detail Product", { item: item })}
+      >
+
+        <Box justifyContent={'space-between'} alignItems={"center"}>
+        <Box
+          shadow={5}
+          backgroundColor={'#FFFFFF'}
+          mx={4}
+          my={2}
+          borderRadius={5}
+          flexDirection={"column"}
+          w={200}
+          h={180}
+        >
+          <Box backgroundColor={"gray.200"}py={2}>
+            <Image source={{ uri: item.image }} w="full" h="100" resizeMode="contain" alt="Image Data"/>
+          </Box>
+          <Box
+          p={2}>
+          <Text fontSize={"12"} fontWeight={'semibold'} color={'black'} >
+              {item.title}
+            </Text>
+            <Heading mt={2} fontSize={"sm"}color={'#006664'} > 
+            {item.Price}
+            </Heading>
+          </Box>
+        </Box>
+        </Box>
+      </TouchableOpacity>
+    );
+  };
+
+return (
+  <>
     <Header/>
     <ScrollView>
-      <VStack>
-      <Box>
-        <Image source={require("../assets/baner.jpg")}
+    <VStack>
+      <Box mx={3} mt={5} >
+        <Image source={require("../assets/Suburjaya.png")}
         alt="banner"
         w="full"
         h="3xs"
+        borderRadius={25}
         />
       </Box>
       <Box>
-      <HStack justifyContent="space-between" alignItems="center">
-      <Text marginLeft={3} my={5} fontSize={20} fontWeight={'semibold'}>
-    Apa Yang Anda Butuhkan ?
+    <VStack>
+    <Text marginLeft={3} my={5} fontSize={20} fontWeight={'bold'}>
+    KATEGORI TERATAS
     </Text>
-    <TouchableOpacity onPress={() => navigation.navigate("Product")}>
-    <Text mr={2} my={6} fontSize={14} bold color={"green.600"}>
-    Lihat Semua
-    </Text>
+    <VStack>
+    <HStack mx={5} justifyContent="space-between" alignItems={"center"} >
+    <TouchableOpacity onPress={() => navigation.navigate("Bata")}>
+    <Box backgroundColor={"#006664"} px={2} pt={2} borderRadius={15} > 
+      <Image
+        source={require("../assets/bata.png")}
+        w="80px"
+        h="70px"
+        alt="Logo"
+        resizeMode="contain"
+        borderRadius={10}
+      />
+      <Center mb={1}>
+      <Text color={"trueGray.100"} fontSize={14}>Bata</Text>
+      </Center> 
+      </Box>   
     </TouchableOpacity>
-      </HStack>
-    
+    <TouchableOpacity onPress={() => navigation.navigate("Semen")}>
+    <Box backgroundColor={"#006664"} px={2} pt={2} borderRadius={15}>
+      <Image
+        source={require("../assets/semen.png")}
+        w="80px"
+        h="70px"
+        alt="Logo"
+        resizeMode="contain"
+        borderRadius={10}
+      />
+      <Center mb={1}>
+      <Text color={"trueGray.100"}  fontSize={14}>Semen</Text>
+      </Center>
+      </Box>   
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("Cat")}>
+    <Box backgroundColor={"#006664"} px={2} pt={2} borderRadius={15}>
+      <Image
+        source={require("../assets/cat.png")}
+        w="80px"
+        h="70px"
+        alt="Logo"
+        resizeMode="contain"
+        borderRadius={10}
+      />
+      <Center mb={1}>
+      <Text color={"trueGray.100"} fontSize={14}>Cat</Text>
+      </Center> 
+      </Box>   
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("Category")}>
+    <Box backgroundColor={"#006664"} px={2} pt={2} borderRadius={15}>
+      <Image
+        source={require("../assets/lain.png")}
+        w="80px"
+        h="70px"
+        alt="Logo"
+        resizeMode="contain"
+        borderRadius={10}
+      />
+      <Center mb={1}>
+      <Text  color={"trueGray.100"} fontSize={14}>Lainnya</Text>
+      </Center> 
+      </Box>   
+    </TouchableOpacity>
+    </HStack>
+    </VStack>
+    </VStack>
+
     </Box>
-    <Box>
-    <ScrollView marginLeft={'1'} horizontal={true} scrollEnabled={true}>
-          <Box marginLeft={3}>
-          <Image
-                source={require("../assets/dinding.jpg")}
-                w="130px"
-                h="130px"
-                alt="Logo"
-                borderRadius={30}
-            />
-          <Center>
-          <Text marginTop={1} color={"gray.600"}  marginBottom={2} fontSize={18}>Dinding</Text>
-          </Center> 
-          </Box>   
-          <Box marginLeft={3}>
-          <Image
-                source={require ("../assets/atap.jpg")}
-                w="130px"
-                h="130px"
-                alt="Logo"
-                borderRadius={30}
-            />
-          <Center>
-          <Text marginTop={1} color={"gray.600"}  marginBottom={2} fontSize={18}>Atap</Text>
-          </Center> 
-          </Box>  
-          <Box marginLeft={3}>
-          <Image
-                source={require ("../assets/cat.jpg")}
-                w="130px"
-                h="130px"
-                alt="Logo"
-                borderRadius={30}
-            />
-          <Center>
-          <Text marginTop={1} color={"gray.600"}  marginBottom={2} fontSize={18}>Cat</Text>
-          </Center> 
-          </Box>  
-          <Box marginLeft={3}>
-          <Image
-                source={require ("../assets/lain.jpg")}
-                w="130px"
-                h="130px"
-                alt="Logo"
-                borderRadius={30}
-            />
-          <Center>
-          <Text marginTop={1} color={"gray.600"}  marginBottom={5} fontSize={18}>Lain-lain</Text>
-          </Center> 
-          </Box>  
-      </ScrollView>
+    </VStack>
+      <Box backgroundColor={'gray.100'} my={5}>
+      <Text marginLeft={3} my={3} fontSize={20} fontWeight={'bold'} color={'#006664'}>
+          Rekomendasi
+        </Text>
       </Box>
-      <Center>
-      <Box backgroundColor={'gray.300'} w={'full'}>
-          <Center marginTop={5} marginBottom={5}>
-            <Text fontWeight={'bold'} fontSize={16} color={'black'}>Kenapa harus beli di <Text bold >RYAPP</Text> ?? </Text>
-          <Box mx={3} my={5} >
-          <VStack>
-            <HStack>
-              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={3} >
-              <Image source={{
-      uri: "https://png.pngtree.com/png-clipart/20220705/original/pngtree-vector-red-toolbox-with-hand-tools-png-image_8334929.png"
-    }} alt="icon" size="sm" borderRadius={90} m={3}/>
-                <Text textAlign={'left'} m={1} fontWeight={"bold"} fontSize={'sm'} color={"gray.700"}>Berbagai produk dan merek bahan material</Text>
-              </Box>
-              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={2}>
-              <Image source={{
-      uri: "https://i.pinimg.com/736x/2e/f2/f3/2ef2f3289430a49cfbd483bf44dd2f17.jpg"
-    }} alt="icon" size="md" borderRadius={90} m={3}/>
-                <Text textAlign={'left'} m={1} fontWeight={"bold"} fontSize={'sm'} color={"gray.700"}>Penggiriman Cepat</Text>
-              </Box>
-            </HStack>
-          </VStack>
-          <VStack mt={5}>
-            <HStack>
-            <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={3}>
-              <Image source={{
-      uri: "https://png.pngtree.com/png-clipart/20201208/original/pngtree-24-hour-clock-delivery-service-png-image_5518192.jpg"
-    }} alt="icon" size="sm" borderRadius={90} m={3}/>
-                <Text textAlign={'left'} m={1} fontWeight={"bold"} fontSize={'sm'} color={"gray.700"}>Layanan 24 jam
-
-Bagi Kontraktor dan Vendor</Text>
-              </Box>
-              <Box backgroundColor={"white"} w={'180px'}h={'180px'} rounded={30} mx={2}>
-              <Image source={{
-      uri: "https://png.pngtree.com/png-vector/20230328/ourmid/pngtree-best-price-icon-design-vector-png-image_6673126.png"
-    }} alt="icon" size="sm" borderRadius={90} m={3}/>
-                <Text textAlign={'left'} m={1} fontWeight={"bold"} fontSize={'sm'} color={"gray.700"}>Harga Khusus Untuk Akun Bisnis</Text>
-              </Box>
-            </HStack>
-          </VStack>
-          </Box>
-
-          </Center>
-      </Box>
-      <Box>
-      <VStack>
-      <Heading  my={5} ml={5} fontSize={20} textAlign={"left"}>Kontak Kami</Heading>
-      <HStack mb={5} backgroundColor={"gray.300"} borderRadius={10} shadow={3} >
+    <FlatList
+      data={data}
+      renderItem={renderitem}
+      keyExtractor={(item) => item.id}
+      showsVerticalScrollIndicator={false}
+      numColumns={2}
+      columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'center'}}
+    />
+    <Box  backgroundColor={"#006664"}mt={30} h={80}>
+      <Heading  m={5} fontSize={20} color={"trueGray.100"}>Kontak Kami</Heading>
+      <HStack mb={5} backgroundColor={"white"} mx={5} borderRadius={30} shadow={2}>
       <Image
           source={require ("../assets/JAAA.png")}
-          w="130"
-          h="130"
+          w="100"
+          h="140"
           alt="Logo"
-          resizeMode="cover"
-          m={5}
+          borderRadius={100}
+          resizeMode="contain"
+          mb={5}
+          mt={5}
+          ml={5}
             />
-      <Center>
-      <Box mx={1} pr={6}>
-      <VStack>
-      <HStack>
-          <Ionicons name="logo-instagram"  size={30} color='purple' />
-          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+      <VStack  mt={8}>
+      <HStack ml={5}>
+          <Ionicons name="logo-instagram"  size={30} color="black"/>
+          <Link ml={5}  href="https://nativebase.io" isUnderlined _text={{fontSize:"md",}} >
             @suburjaya
           </Link>
       </HStack>
-      <HStack>
-          <Ionicons name="logo-whatsapp"  size={30} color="green"/>
-          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+      <HStack ml={5} mt={2}>
+          <Ionicons name="logo-whatsapp"  size={30} color="black"/>
+          <Link ml={5}  href="https://nativebase.io" isUnderlined _text={{fontSize:"md",}} >
             08003337221
           </Link>
       </HStack>
-      <HStack>
-          <Ionicons name="mail-outline"  size={30} color="red" />
-          <Link ml={5}  href="https://www.instagram.com/hanifbahyhasyid/?hl=en" isUnderlined _text={{fontSize:"md",}} >
+      <HStack ml={5} mt={2}>
+          <Ionicons name="mail-outline"  size={30} color="black"/>
+          <Link ml={5}  href="https://nativebase.io" isUnderlined _text={{fontSize:"md",}} >
             suburjaya@gmail.com
           </Link>
       </HStack>
       </VStack>
-      </Box>
-      </Center>
       </HStack>
-      </VStack>
       </Box>
-      </Center>
-    </VStack>
-    </ScrollView>
-    </>
-  );
+</ScrollView>
+    
+</>
+);
 };
 
 export default HomeScreen;

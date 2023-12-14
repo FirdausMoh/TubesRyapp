@@ -1,20 +1,20 @@
-import { Heading, ScrollView, Center, Text, Box, Image, Button, HStack, Divider } from "native-base";
-import { Header, ScreenTop } from "../components";
+import { Heading, ScrollView, Center, Text, Box, Image, Button, HStack, Divider, VStack } from "native-base";
+import { ScreenTop } from "../components";
 import { useNavigation } from "@react-navigation/native";
 
 
 const DetailProduct = ({ route }) => {
-    const { image, title, content, Price, category } = route.params.item;
+    const { image, title, content, Price,deskripsi } = route.params.item;
     const navigation = useNavigation();
 
 return (
+    <>
+    <ScreenTop shadow={3}/>
     <ScrollView>
-    <ScreenTop  title={'Detail Produk'} shadow={3}/>
-    <Center mt={5}>
-    <Box m={10} shadow={3} backgroundColor={"white"} >
+    <Box m={5} shadow={3} backgroundColor={"#006664"} borderRadius={30} pb={10}>
     <Center mt={30}>
         <HStack>
-        <Box> 
+        <Box w={400} backgroundColor={"gray.100"} borderRadius={20}> 
         <Image
             source={{ uri: image }}
             width={400}
@@ -23,39 +23,44 @@ return (
             resizeMode="contain"
           />
           </Box>
+          
         </HStack>
     </Center>
-        <Box m={5}>
-            <Box mt={5}>
-            <Heading fontSize={16} m={3}> Kategori Barang : <Text color={"gray.600"}>{category}</Text></Heading> 
+        <Box>
+            <Box mt={3} ml={3} textAlign={"center"}>
+            <Heading color={"gray.100"} fontSize={16}> Nama produk : <Text color={"gray.100"}>{content}</Text></Heading>
+            <Heading color={"gray.100"}fontSize={16}> Harga : <Text color={"gray.100"}>{Price}</Text></Heading>  
+            <Divider  mt={5} backgroundColor={"red.100"} thickness={2} w={400}></Divider>
             </Box>
-            <Divider color={"black"} thickness={2}></Divider>
-            <Box>
-            <Heading fontSize={16} m={3}> Nama Barang : <Text color={"gray.600"}>{title}</Text></Heading> 
-            </Box>
-            <Divider color={"black"} thickness={2}></Divider>
-            <Box>
-            <Heading fontSize={16} m={3}> Deskripsi : <Text color={"gray.600"}>{content}</Text></Heading> 
-            </Box>
-            <Divider color={"black"} thickness={2}></Divider>
-            <Box>
-            <Heading fontSize={16} m={3}> Harga Barang : <Text color={"gray.600"}>{Price}</Text></Heading> 
-            </Box>
-            <Divider color={"black"} thickness={2}></Divider>
-            <Box my={'10%'}>
+            <Box ml={3} mt={5}>
+            <VStack>
+            <Heading  fontSize={20} color={"gray.100"} mb={3} > Deskripsi</Heading>
+                <HStack alignItems={'left'} justifyContent={"left"}>
+                 <Heading fontSize={16} color={"gray.100" } mr={2}>{deskripsi}</Heading>
+                </HStack>
+            </VStack>
+            </Box>    
+        </Box> 
+    </Box>
+    <Box>
                 <Center>
                 <Button 
-                w={300} borderRadius={10} backgroundColor={'red.600'} 
+                w={430} borderRadius={10} backgroundColor={'#006664'} 
+                onPress={() => navigation.navigate("Keranjang", { item: route.params.item })}>
+                    <Text fontSize={"xl"} fontWeight={"bold"} color={"#FFFFFF"}>Tambah Keranjang</Text>
+                </Button>
+                <Button mt={5} 
+                w={430} borderRadius={10} backgroundColor={'#006664'} 
                 onPress={() => navigation.navigate("Pembelian", { item: route.params.item })}>
-                    <Text fontSize={"xl"} color={"white"}>Beli</Text>
+                    <Text fontSize={"xl"} fontWeight={"bold"} color={"#FFFFFF"}>Beli Sekarang</Text>
                 </Button>
                 </Center>  
             </Box>
-        </Box> 
-    </Box>
-    </Center>        
+       
     </ScrollView>
+    </>
   );
-
+ 
 };
+
 export default DetailProduct;

@@ -13,23 +13,34 @@ const Category = () => {
     <ScrollView>
       <VStack>
       <Box my={5}>
-      <Heading ml={5}>Kategori Barang</Heading>
+      <Heading ml={'16px'}>Kategori Barang</Heading>
 
       <HStack alignItems={'center'} justifyContent={"center"} my={3}>
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Semen")}>
           <Center>
-          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
+          <Box 
+          shadow={3} 
+          backgroundColor={'#006664'} 
+          w={220}
+          h={185}
+          borderRadius={20}
+            >
           <Center>
           <Image
-                source={require ("../assets/semen.jpg")}
-                w="140"
-                h="140"
+                source={require ("../assets/semen.png")}
+                w="150"
+                h="150"
+                borderTopRadius={5}
+                resizeMode="contain"
                 alt="Logo"
-                borderRadius={10}
+
             />
-            <Text color={"gray.600"} my={1} fontSize={18}>Pilihan Semen</Text>
+            <Text 
+            color={"#FFFFFF"}mb={2} fontSize={18}>
+              Semen
+            </Text>
             </Center>
             </Box>
           </Center>   
@@ -38,58 +49,27 @@ const Category = () => {
         onPress={() =>
         navigation.navigate("Cat")}>
         <Center>
-          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
-          <Center>
-          <Image
-                source={require ("../assets/cat.png")}
-                w="140"
-                h="140"
-                alt="Logo"
-                borderRadius={10}
-            />
-          <Text marginTop={1} color={"gray.600"}  my={1} fontSize={18}>Pilihan Cat</Text>
-          </Center> 
-          </Box>
-        </Center>   
-        </TouchableOpacity>     
-    </HStack>
-
-    <HStack alignItems={'center'} justifyContent={"center"} my={3} >
-        <TouchableOpacity
-        onPress={() =>
-        navigation.navigate("Bata")}>
-          <Center>
-          <Box shadow={5} backgroundColor={'white'} p={4} mx={2.5} borderRadius={30}>
-          <Center>
-          <Image
-                source={require ("../assets/bata.webp")}
-                w="140"
-                h="140"
-                alt="Logo"
-                borderRadius={10}
-            />
-            
-            <Text color={"gray.600"} my={1} fontSize={18}>Pilihan Bata</Text>
-            </Center>
-            </Box>
-          </Center>   
-        </TouchableOpacity>
-        <TouchableOpacity 
-        onPress={() =>
-        navigation.navigate("Galvalum")}>
-        <Center>
-          <Box shadow={5} backgroundColor={'white'}  p={4} mx={2.5} borderRadius={30}
+          <Box
+          ml={2} 
+          shadow={3} 
+          backgroundColor={'#006664'} 
+          w={220}
+          h={185}
+          borderRadius={20}
           >
           <Center>
           <Image
-                source={require ("../assets/galvalum.png")}
-                w="140"
-                h="140"
+                source={require ("../assets/cat.png")}
+                w="220"
+                h="150"
+                borderTopRadius={5}
+                resizeMode="contain"
                 alt="Logo"
-                borderRadius={10}
             />
-          
-          <Text marginTop={1} color={"gray.600"}  my={1} fontSize={18}>Pilihan Galvalum</Text>
+           <Text 
+            color={"#FFFFFF"}mb={2} fontSize={18}>
+              Cat
+              </Text>
           </Center> 
           </Box>
         </Center>   
@@ -99,23 +79,93 @@ const Category = () => {
     <HStack alignItems={'center'} justifyContent={"center"} my={3}>
         <TouchableOpacity
         onPress={() =>
-        navigation.navigate("Product")}>
+        navigation.navigate("Bata")}>
           <Center>
-          <Box shadow={5} backgroundColor={'white'} p={4} mr={'190px'}  borderRadius={30}>
+          <Box 
+          shadow={3} 
+          backgroundColor={'#006664'} 
+          w={220}
+          h={185}
+          borderRadius={20}
+          >
           <Center>
           <Image
-                source={require ("../assets/other.png")}
-                w="140"
-                h="140"
+                source={require ("../assets/bata.png")}
+                w="220"
+                h="150"
+                borderTopRadius={5}
+                resizeMode="contain"
                 alt="Logo"
-                borderRadius={10}
             />
             
-            <Text color={"gray.600"} my={1} fontSize={18}> Semua</Text>
+            <Text 
+           color={"#FFFFFF"}mb={2} fontSize={18}>Bata</Text>
             </Center>
             </Box>
           </Center>   
-          </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity 
+        onPress={() =>
+        navigation.navigate("Galvalum")}>
+        <Center>
+        <Box 
+          ml={2} 
+          shadow={3} 
+          backgroundColor={'#006664'} 
+          w={220}
+          h={185}
+          borderRadius={20}
+          >
+          <Center>
+          <Image
+                source={require ("../assets/galvalum.png")}
+                w="220"
+                h="150"
+                borderTopRadius={5}
+                resizeMode="contain"
+                alt="Logo"
+            />
+          
+          <Text  color={"#FFFFFF"}mb={2} fontSize={18}>Galvalum</Text>
+          </Center> 
+          </Box>
+        </Center>   
+        </TouchableOpacity>     
+    </HStack>
+
+    <HStack mx={3} my={3}>
+        <TouchableOpacity 
+        onPress={() =>
+          navigation.navigate("Product")}>
+        <Center>
+        <Box 
+          ml={2} 
+          shadow={3} 
+          backgroundColor={'#006664'} 
+          w={220}
+          h={185}
+          borderRadius={20}
+          >
+          <Center>
+          <Image
+                source={require ("../assets/other.png")}
+                w="220"
+                h="150"
+                borderTopRadius={5}
+                resizeMode="contain"
+                alt="Logo"
+            />
+          
+          <Text color={"#FFFFFF"}mb={2} fontSize={18}>Semua</Text>
+          </Center> 
+          </Box>
+        </Center>   
+        </TouchableOpacity>     
+    </HStack>
+    <HStack>
+      <Box py={10}>
+
+      </Box>
     </HStack>
 
     </Box>
