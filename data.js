@@ -89,18 +89,6 @@ const data = [
   {
     id: 8,
     category:
-    "Cat",
-    title: "Cat Jotun",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Jotun.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Jotun Putih",
-      deskripsi : "Cat Jotun warna putih merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 9,
-    category:
     "Bata",
     title: "Bata Merah",
     image:
@@ -110,7 +98,7 @@ const data = [
       content: "Bata Merah 10 Lusin ",
       deskripsi : "Bata merah merupakan bahan bangunan tradisional yang terbuat dari tanah liat yang dipanggang pada suhu tinggi. Kekuatan, daya tahan, dan kemampuan isolasi termal yang baik menjadikan bata merah pilihan utama dalam konstruksi bangunan. Bata merah sering digunakan untuk dinding, struktur, dan fasad bangunan, memberikan tampilan estetis yang klasik dan kokoh"
   },
-    ];
+];
     
     export default data;
     

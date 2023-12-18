@@ -29,7 +29,7 @@ const Header = ({ title, withBack = false }) => {
             onPress={() => navigation.navigate("Login")}
             backgroundColor={"#006664"}
           >
-            <Text color={"white"}>Login</Text>
+            <Text color={"white"}>Keluar</Text>
           </Button>
         </HStack>
       </Box>

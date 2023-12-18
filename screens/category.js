@@ -2,6 +2,7 @@ import { Heading, Image, Text, Box , ScrollView,View, Center, VStack, HStack} fr
 import { Header } from "../components";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
+import { Platform } from 'react-native';
 
 const Category = () => {
   const navigation = useNavigation();
@@ -11,11 +12,11 @@ const Category = () => {
     <Header/>
     </View>
     <ScrollView>
+      <VStack >
+      <Box mt={5}>
       <VStack>
-      <Box my={5}>
-      <Heading ml={'16px'}>Kategori Barang</Heading>
-
-      <HStack alignItems={'center'} justifyContent={"center"} my={3}>
+      <Heading ml={15} mb={5} >Kategori Barang</Heading>
+        <HStack justifyContent="space-evenly" my={2} mx={4}>
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Semen")}>
@@ -23,7 +24,7 @@ const Category = () => {
           <Box 
           shadow={3} 
           backgroundColor={'#006664'} 
-          w={220}
+          w={190}
           h={185}
           borderRadius={20}
             >
@@ -53,14 +54,14 @@ const Category = () => {
           ml={2} 
           shadow={3} 
           backgroundColor={'#006664'} 
-          w={220}
+          w={190}
           h={185}
           borderRadius={20}
           >
           <Center>
           <Image
                 source={require ("../assets/cat.png")}
-                w="220"
+                w="150"
                 h="150"
                 borderTopRadius={5}
                 resizeMode="contain"
@@ -75,8 +76,7 @@ const Category = () => {
         </Center>   
         </TouchableOpacity>     
     </HStack>
-
-    <HStack alignItems={'center'} justifyContent={"center"} my={3}>
+    <HStack justifyContent="space-evenly" my={2} mx={4}>
         <TouchableOpacity
         onPress={() =>
         navigation.navigate("Bata")}>
@@ -84,14 +84,14 @@ const Category = () => {
           <Box 
           shadow={3} 
           backgroundColor={'#006664'} 
-          w={220}
+          w={190}
           h={185}
           borderRadius={20}
           >
           <Center>
           <Image
                 source={require ("../assets/bata.png")}
-                w="220"
+                w="150"
                 h="150"
                 borderTopRadius={5}
                 resizeMode="contain"
@@ -112,14 +112,14 @@ const Category = () => {
           ml={2} 
           shadow={3} 
           backgroundColor={'#006664'} 
-          w={220}
+          w={190}
           h={185}
           borderRadius={20}
           >
           <Center>
           <Image
                 source={require ("../assets/galvalum.png")}
-                w="220"
+                w="150"
                 h="150"
                 borderTopRadius={5}
                 resizeMode="contain"
@@ -132,24 +132,34 @@ const Category = () => {
         </Center>   
         </TouchableOpacity>     
     </HStack>
-
-    <HStack mx={3} my={3}>
+    <HStack justifyContent="space-between"  
+    style={{
+    ...Platform.select({
+      ios: {
+        marginVertical: 10, // Atur margin pada platform iOS
+        marginHorizontal: 15,
+      },
+      android: {
+        marginVertical: 10, // Atur margin pada platform Android
+        marginHorizontal: 30,
+      },
+    }),
+  }} >
         <TouchableOpacity 
         onPress={() =>
           navigation.navigate("Product")}>
         <Center>
         <Box 
-          ml={2} 
           shadow={3} 
           backgroundColor={'#006664'} 
-          w={220}
+          w={190}
           h={185}
           borderRadius={20}
           >
           <Center>
           <Image
                 source={require ("../assets/other.png")}
-                w="220"
+                w="150"
                 h="150"
                 borderTopRadius={5}
                 resizeMode="contain"
@@ -162,6 +172,7 @@ const Category = () => {
         </Center>   
         </TouchableOpacity>     
     </HStack>
+    </VStack>
     <HStack>
       <Box py={10}>
 

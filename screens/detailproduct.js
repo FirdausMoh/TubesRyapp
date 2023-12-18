@@ -6,56 +6,57 @@ import { useNavigation } from "@react-navigation/native";
 const DetailProduct = ({ route }) => {
     const { image, title, content, Price,deskripsi } = route.params.item;
     const navigation = useNavigation();
+    
 
 return (
     <>
     <ScreenTop shadow={3}/>
-    <ScrollView>
-    <Box m={5} shadow={3} backgroundColor={"#006664"} borderRadius={30} pb={10}>
-    <Center mt={30}>
-        <HStack>
-        <Box w={400} backgroundColor={"gray.100"} borderRadius={20}> 
+    <ScrollView >
+    <Box backgroundColor={"white"} pb={20} mt={2} >
+        <VStack>
+        <Box mx={5} my={5}borderRadius={20}> 
         <Image
             source={{ uri: image }}
-            width={400}
-            height={200}
             alt={title}
-            resizeMode="contain"
+            resizeMode='cover'
+            w={'full'}
+            h={400}
+            borderRadius={20}
           />
-          </Box>
-          
-        </HStack>
-    </Center>
+        </Box>
+        <HStack mx={5} justifyContent={"space-between"} >
+            <Box  flex={1}>
+            <Heading fontSize={20} color={"gray.800"} >{content}</Heading>
+            <Heading fontSize={20} color={"gray.800"}>{Price}</Heading>
+            </Box>
+            
+            <Box>
+                <Button 
+                borderRadius={10} backgroundColor={'#006664'} w={40} h={'50px'}
+                onPress={() => navigation.navigate("Keranjang", { item: route.params.item })}>
+                    <Text fontSize={"sm"} fontWeight={"bold"} color={"#FFFFFF"}>Beli Sekarang</Text>
+                </Button>
+            </Box>
+        </HStack> 
+        
+        </VStack>
         <Box>
-            <Box mt={3} ml={3} textAlign={"center"}>
-            <Heading color={"gray.100"} fontSize={16}> Nama produk : <Text color={"gray.100"}>{content}</Text></Heading>
-            <Heading color={"gray.100"}fontSize={16}> Harga : <Text color={"gray.100"}>{Price}</Text></Heading>  
-            <Divider  mt={5} backgroundColor={"red.100"} thickness={2} w={400}></Divider>
+            <VStack justifyContent={"space-between"}>
+            
+            </VStack>
+            <Center>
+            <Divider  mt={5} backgroundColor={"gray.300"} thickness={2} w={'300'} ></Divider>
+            </Center>  
             </Box>
             <Box ml={3} mt={5}>
             <VStack>
-            <Heading  fontSize={20} color={"gray.100"} mb={3} > Deskripsi</Heading>
+            <Heading  fontSize={20} color={"gray.800"} mb={3} >Deskripsi</Heading>
                 <HStack alignItems={'left'} justifyContent={"left"}>
-                 <Heading fontSize={16} color={"gray.100" } mr={2}>{deskripsi}</Heading>
+                 <Heading fontSize={16} color={"gray.800" } mr={2}>{deskripsi}</Heading>
                 </HStack>
             </VStack>
             </Box>    
-        </Box> 
     </Box>
-    <Box>
-                <Center>
-                <Button 
-                w={430} borderRadius={10} backgroundColor={'#006664'} 
-                onPress={() => navigation.navigate("Keranjang", { item: route.params.item })}>
-                    <Text fontSize={"xl"} fontWeight={"bold"} color={"#FFFFFF"}>Tambah Keranjang</Text>
-                </Button>
-                <Button mt={5} 
-                w={430} borderRadius={10} backgroundColor={'#006664'} 
-                onPress={() => navigation.navigate("Pembelian", { item: route.params.item })}>
-                    <Text fontSize={"xl"} fontWeight={"bold"} color={"#FFFFFF"}>Beli Sekarang</Text>
-                </Button>
-                </Center>  
-            </Box>
        
     </ScrollView>
     </>
