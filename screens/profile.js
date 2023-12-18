@@ -1,13 +1,17 @@
-import { Heading, Center,Image, Box,Text, VStack, Button} from "native-base";
-import { TouchableOpacity, View } from "react-native";
+import { Image, Box,Text, VStack} from "native-base";
+import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 const Profile = () => {
   const navigation = useNavigation();
+
+  const [memberStatus,setMemberStatus] = useState('Member VIP');
+
   return (
     <>
     <VStack >
-      <Box backgroundColor={'red.600'}>
+      <Box backgroundColor={'red.600'} pt={10}>
       <Image
           source={require ("../assets/pp.jpg")}
           w="90"
@@ -22,7 +26,7 @@ const Profile = () => {
       <Box ml={5}>
         <Text fontSize={24} fontWeight={'semibold'} color={"white"}> Mifta Syukron</Text>
         <Box backgroundColor={'yellow.500'} w={'115px'} borderRadius={30} mb={'20px'}>
-        <Text fontSize={14}  color={"white"} textAlign={"center"}>Member VIP</Text>
+        <Text fontSize={14}  color={"white"} textAlign={"center"}>{memberStatus}</Text>
         </Box>  
       </Box>
       </Box>

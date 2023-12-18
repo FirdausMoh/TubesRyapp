@@ -6,18 +6,19 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 
 
+
 const ScreenTop = ({ title, withBack = false }) => {
   const trueGray900 = "#171717";
   const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={['right', 'left', 'top']}>
       <StatusBar barStyle="light" backgroundColor={trueGray900} />
-      <Box bg={"white"} p={"4"}>
-      <HStack justifyContent="space-between" alignItems="center">
-          <HStack alignItems="center">
+      <Box bg={"white"} p={"4"} shadow={2}>
+      <HStack justifyContent="space-between" alignItems="center" >
+          <HStack >
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Box mr={10}>
-            <Ionicons name="arrow-back"  size={40} color="black"/>
+            <Box mr={10} p={1} backgroundColor={'#006664'} borderRadius={10}>
+            <Ionicons name="arrow-back" size={25} color="#FFFFFF"/>
             </Box>
           </TouchableOpacity>
             <Heading color={"#006664"} marginLeft={2}>

@@ -1,18 +1,23 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeBaseProvider, Text, } from "native-base";
+import { Center, NativeBaseProvider, Text, } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Profile from "./screens/profile"
 import HomeScreen from "./screens/home";
 import Category from "./screens/category";
 import Product from "./screens/Product";
+import Login from "./screens/login";
+import Register from "./screens/register";
 import DetailProduct from "./screens/detailproduct";
 import Aboutus from "./screens/AboutUs";
 import Semen from "./screens/Semen";
+import Cat from "./screens/Cat";
+import Bata from "./screens/Bata";
+import Keranjang from "./screens/Keranjang";
 import Faqs from "./screens/Faq";
-import Pembelian from "./screens/Pembelian";
-
+import Galvalum from "./screens/Galvalum";
+import Splash from "./screens/Splash";
 
 Ionicons.loadFont();
 
@@ -25,7 +30,6 @@ const noHead = { headerShown: false };
 const Tabs = () => {
   return (
     <Tab.Navigator
-    initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color }) => {
           let iconName;
@@ -43,22 +47,25 @@ const Tabs = () => {
           return (
             <Ionicons
               name={iconName}
-              size={28}
-              color={focused ? "black" : color}
+              size={30}
+              color={focused ? "#006664" : color}
+              style={{ marginBottom: Platform.OS === 'ios' ? 2 : 0 }} // Tambahkan buat ios
             />
           );
         },
         tabBarIconStyle: { marginTop: 5 },
         tabBarStyle: {
-          height: 100,
+          height: 55,
+          width:'full',
           borderTopWidth: 0,
+          backgroundColor: '#373737',
+          marginVertical: 20,
+          marginHorizontal: 40,
+          borderRadius: 25,
+          position: "absolute",
+          paddingBottom: Platform.OS === 'ios' ? 2 : 0, //buat ios
         },
-        tabBarLabel: ({ children, color, focused }) => {
-          return (
-            <Text color={focused ? "black" : color} mb={2}>
-              {children}
-            </Text>
-          );
+        tabBarLabel: ({}) => {
         },
       })}
     >
@@ -74,8 +81,9 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen name="Tabs" component={Tabs} options={noHead} />
+          <Stack.Screen name="Splash" component={Splash} options={noHead} />
 
           <Stack.Screen
             name="Product"
@@ -87,6 +95,11 @@ const App = () => {
             component={DetailProduct}
             options={noHead}
           />
+           <Stack.Screen
+            name="Login"
+            component={Login}
+            options={noHead}
+            />
           <Stack.Screen
             name="AboutUs"
             component={Aboutus}
@@ -98,13 +111,33 @@ const App = () => {
             options={noHead}
           />
           <Stack.Screen
+            name="Bata"
+            component={Bata}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Keranjang"
+            component={Keranjang}
+            options={noHead}
+          />
+          <Stack.Screen
+            name="Cat"
+            component={Cat}
+            options={noHead}
+          />
+          <Stack.Screen
             name="Faq"
             component={Faqs}
             options={noHead}
           />
-          <Stack.Screen
-            name="Pembelian"
-            component={Pembelian}
+           <Stack.Screen
+            name="Register"
+            component={Register}
+            options={noHead}
+          />
+            <Stack.Screen
+            name="Galvalum"
+            component={Galvalum}
             options={noHead}
           />
         </Stack.Navigator>
