@@ -21,15 +21,9 @@ const ScreenTop = ({ title, withBack = false }) => {
             <Ionicons name="arrow-back" size={25} color="#FFFFFF"/>
             </Box>
           </TouchableOpacity>
-          </HStack>
-          <HStack mr={-3} >
-            <Image
-              source={require("../assets/JAAA.png")}
-              w="100px"
-              h="40px"
-              alt="Logo"
-              resizeMode="cover"
-            />
+            <Heading color={"#006664"} marginLeft={2}>
+              {title}
+            </Heading>
           </HStack>
         </HStack>
       </Box>
