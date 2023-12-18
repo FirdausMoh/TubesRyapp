@@ -39,90 +39,17 @@ const dataProduk = [
   {
     id: 4,
     category:
-    "Cat",
-    title:
-      "Cat Avitex ",
+    "Bata",
+    title: "Batako",
     image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Avitex_SWhN3Wh.width-800.format-webp.webp",
-    Price:"Rp 40.000",
-    price:'40000',
-    content: "Cat Avitex Biru",
-    deskripsi : "Cat Avitex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+      "https://1.bp.blogspot.com/-I1ft7N-ky0o/Xiy-Vtz8dKI/AAAAAAAB9A0/zey8nbyIIUMdKizvf6kOnGyiHVOLcEofACLcBGAsYHQ/s1280/tips-memilih-batako.jpg",
+      Price:"Rp 70.000",
+      price:'70000',
+      content: "Batu Batako 10 Lusin ",
+      deskripsi : "Batako merupakan material bangunan yang dibuat dari campuran semen, pasir, dan agregat dengan bentuk persegi panjang berukuran standar sekitar 10x20x40 cm atau 15x20x40 cm. Material ini memiliki sifat kuat dan tahan lama setelah proses pengeringan, cocok untuk digunakan dalam berbagai aplikasi konstruksi seperti pembuatan dinding, kolom, dan struktur bangunan lainnya. Batako sering dipilih dalam industri konstruksi karena kemudahannya dalam penggunaan, fungsionalitas, dan kemampuannya menyediakan solusi ekonomis dalam proses pembangunan."
   },
   {
     id: 5,
-    category:
-    "Cat",
-    title: " Cat Vinilex",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Vinilex.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Vinilex Biru",
-      deskripsi : "Cat Vinilex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 6,
-    category:
-    "Cat",
-    title: "Cat Dulux",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Dulux_Catylac.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Dulux Merah",
-      deskripsi : "Cat dulux warna merah merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 7,
-    category:
-    "Cat",
-    title: "Cat Nippon Paint",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Paint.width-800.format-webp_bgQSK64.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Nippon Paint Hijau",
-      deskripsi : "Cat Nippon Paint warna Hijau merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 8,
-    category:
-    "Cat",
-    title: "Cat Jotun",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Jotun.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Jotun Putih",
-      deskripsi : "Cat Jotun warna putih merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 9,
-    category:
-    "Cat",
-    title: "Cat No Drop",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/No_Drop.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat NoDrop Biru",
-      deskripsi : "Cat NoDrop warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 10,
-    category:
-    "Cat",
-    title: "Cat Aquaproof",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Aquaproof.width-800.format-webp.webp",
-      Price:"Rp 40.000",
-      price:'40000',
-      content: "Cat Aquaproof",
-      deskripsi : "Cat Aquaproof merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
-  },
-  {
-    id: 11,
     category:
     "Galvalum",
     title:
@@ -135,7 +62,7 @@ const dataProduk = [
       deskripsi : "Galvalum bening merupakan material konstruksi yang terbuat dari campuran seng (zinc) dan baja galvanis. Material ini umumnya digunakan sebagai bahan atap atau dinding pada bangunan komersial maupun rumah tinggal",
   },
   {
-    id: 12,
+    id: 6,
     category:
     "Galvalum",
     title: "Galvalum Prima Deck",
@@ -147,7 +74,7 @@ const dataProduk = [
     deskripsi : "Galvalum Prima Deck adalah pilihan yang baik untuk aplikasi struktural pada bangunan yang membutuhkan kekuatan, daya tahan, dan penampilan estetis yang baik.",
   },
   {
-    id: 13,
+    id: 7,
     category:
     "Galvalum",
     title: "Galvalum Hollow",
@@ -159,7 +86,92 @@ const dataProduk = [
     deskripsi : "Galvalum Hollow adalah material konstruksi yang terbuat dari baja galvanis yang dibentuk dalam profil berongga, sering digunakan dalam berbagai proyek konstruksi. Berikut adalah beberapa informasi tentang Galvalum Hollow:",
   },
   {
+    id: 8,
+    category:
+    "Galvalum",
+    title: "Galvalum kanal C",
+    image:
+      "https://sales.kencanaindonesia.co.id/wp-content/uploads/2022/06/Kanal-C.1.png",
+    Price:"Rp 240.000",
+    price:'240000',
+    content: "Galvalum Kanal C Kencana",
+    deskripsi : "Galvalum Kanal C Kencana adalah produk material konstruksi berupa profil baja ringan dengan penampilan C-shaped yang terbuat dari bahan galvalum, yaitu baja dilapisi lapisan seng-alumunium. Profil ini dirancang dengan ketebalan tertentu dan memiliki sifat tahan karat yang tinggi serta kekuatan struktural yang baik. Galvalum Kanal C Kencana umumnya digunakan sebagai rangka atap, plafon, partisi, dan konstruksi baja ringan lainnya pada bangunan komersial, industri, dan perumahan. Keunggulan galvalum tersebut meliputi keawetan, kemampuan tahan terhadap korosi, serta kemudahan dalam proses pemasangan dan perawatan, membuatnya menjadi pilihan utama dalam industri konstruksi modern"
+  },
+  {
+    id: 9,
+    category:
+    "Cat",
+    title:
+      "Cat Avitex ",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/Avitex_SWhN3Wh.width-800.format-webp.webp",
+    Price:"Rp 40.000",
+    price:'40000',
+    content: "Cat Avitex Biru",
+    deskripsi : "Cat Avitex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
+    id: 10,
+    category:
+    "Cat",
+    title: " Cat Vinilex",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Vinilex.width-800.format-webp.webp",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Vinilex Biru",
+      deskripsi : "Cat Vinilex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
+    id: 11,
+    category:
+    "Cat",
+    title: "Cat Dulux",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/Dulux_Catylac.width-800.format-webp.webp",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Dulux Merah",
+      deskripsi : "Cat dulux warna merah merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
+    id: 12,
+    category:
+    "Cat",
+    title: "Cat Nippon Paint",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Paint.width-800.format-webp_bgQSK64.webp",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Nippon Paint Hijau",
+      deskripsi : "Cat Nippon Paint warna Hijau merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
+    id: 13,
+    category:
+    "Cat",
+    title: "Cat Jotun",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/Jotun.width-800.format-webp.webp",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Jotun Putih",
+      deskripsi : "Cat Jotun warna putih merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
     id: 14,
+    category:
+    "Cat",
+    title: "Cat No Drop",
+    image:
+      "https://o-cdn-cas.sirclocdn.com/parenting/images/No_Drop.width-800.format-webp.webp",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat NoDrop Biru",
+      deskripsi : "Cat NoDrop warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
+  },
+  {
+    id: 15,
     category:
     "Semen",
     title:
@@ -172,7 +184,7 @@ const dataProduk = [
     deskripsi : "Semen Gresik 30KG dapat digunakan dalam pembangunan pondasi, lantai, kolom, dan berbagai struktur bangunan. Dikemas dalam kemasan praktis 30KG, produk ini memudahkan penggunaan di lapangan tanpa mengorbankan kualitas. Pilih Semen Gresik 30KG untuk hasil konstruksi yang berkualitas dan tahan lama.",
   },
   {
-    id: 15,
+    id: 16,
     category:
     "Semen",
     title:
@@ -185,7 +197,7 @@ const dataProduk = [
     deskripsi : "Semen Gresik 50KG adalah pilihan utama untuk proyek konstruksi berukuran besar. Merupakan jenis semen Portland yang terkenal akan keunggulan kekuatan dan daya tahan yang tinggi. Dibuat dari bahan berkualitas seperti klinker, gypsum, dan campuran tambahan yang tepat, semen ini ideal untuk berbagai aplikasi konstruksi seperti pembuatan beton, mortar, dan struktur bangunan.",
   },
   {
-    id: 16,
+    id: 17,
     category:
     "Semen",
     title:
@@ -198,7 +210,7 @@ const dataProduk = [
     deskripsi : "Semen Tiga Roda 30KG merupakan pilihan ideal untuk proyek konstruksi skala menengah. Merupakan jenis semen Portland yang handal, memiliki kualitas unggul serta ketahanan tinggi. Dirancang khusus untuk pembuatan beton, mortar, dan konstruksi ringan lainnya. Kemasan praktis 30KG memudahkan transportasi dan penggunaan di berbagai proyek, mulai dari pembangunan rumah hingga renovasi. Cocok untuk para profesional konstruksi maupun pengguna rumah tangga yang menginginkan hasil bangunan yang kokoh dan andal",
   },
   {
-    id: 17,
+    id: 18,
     category:
     "Semen",
     title:

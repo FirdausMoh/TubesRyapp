@@ -1,10 +1,9 @@
-import { Heading, Image, FlatList, Box, VStack, HStack, Text, Center, ScrollView, Link } from "native-base";
+import { Heading, Image, FlatList, Box, VStack, HStack, Text, Center, ScrollView, Link, View } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Header } from "../components";
 import data from "../data";
 import { Ionicons } from "@expo/vector-icons";
-import Vstack from "native-base/src/theme/components/vstack";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -14,16 +13,15 @@ const HomeScreen = () => {
         activeOpacity={0.5}
         onPress={() => navigation.navigate("Detail Product", { item: item })}
       >
-
-        <Box justifyContent={'space-between'} alignItems={"center"}>
+        <Box>
         <Box
           shadow={5}
           backgroundColor={'#FFFFFF'}
-          mx={4}
+          mx={2}
           my={2}
           borderRadius={5}
           flexDirection={"column"}
-          w={200}
+          w={190}
           h={180}
         >
           <Box backgroundColor={"gray.200"}py={2}>
@@ -45,7 +43,7 @@ const HomeScreen = () => {
   };
 
 return (
-  <>
+  <View flex={1}>
     <Header/>
     <ScrollView>
     <VStack>
@@ -63,7 +61,7 @@ return (
     KATEGORI TERATAS
     </Text>
     <VStack>
-    <HStack mx={5} justifyContent="space-between" alignItems={"center"} >
+    <HStack mx={2} justifyContent="space-between" >
     <TouchableOpacity onPress={() => navigation.navigate("Bata")}>
     <Box backgroundColor={"#006664"} px={2} pt={2} borderRadius={15} > 
       <Image
@@ -141,7 +139,7 @@ return (
       keyExtractor={(item) => item.id}
       showsVerticalScrollIndicator={false}
       numColumns={2}
-      columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'center'}}
+      columnWrapperStyle={{ justifyContent: 'space-evenly' }}
     />
     <Box  backgroundColor={"#006664"}mt={30} h={80}>
       <Heading  m={5} fontSize={20} color={"trueGray.100"}>Kontak Kami</Heading>
@@ -181,7 +179,7 @@ return (
       </Box>
 </ScrollView>
     
-</>
+</View>
 );
 };
 

@@ -16,10 +16,8 @@ import Cat from "./screens/Cat";
 import Bata from "./screens/Bata";
 import Keranjang from "./screens/Keranjang";
 import Faqs from "./screens/Faq";
-import Pembelian from "./screens/Pembelian";
 import Galvalum from "./screens/Galvalum";
-import TransaksiBerhasil from "./screens/TransaksiBerhasil";
-import { FullWindowOverlay } from "react-native-screens";
+import Splash from "./screens/Splash";
 
 Ionicons.loadFont();
 
@@ -32,16 +30,15 @@ const noHead = { headerShown: false };
 const Tabs = () => {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color }) => {
-        let iconName;
-        let unfocusedColor = '#FFFFFF';
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color }) => {
+          let iconName;
           switch (route.name) {
             case "Home":
-              iconName = "home";
+              iconName = "home-outline";
               break;
             case "Profile":
-              iconName = "person-circle";
+              iconName = "person-circle-outline";
               break;
             case "Category":
             iconName = "menu";
@@ -51,20 +48,22 @@ const Tabs = () => {
             <Ionicons
               name={iconName}
               size={30}
-              color={focused ? "#006664" : unfocusedColor}
+              color={focused ? "#006664" : color}
+              style={{ marginBottom: Platform.OS === 'ios' ? 2 : 0 }} // Tambahkan buat ios
             />
           );
         },
         tabBarIconStyle: { marginTop: 5 },
         tabBarStyle: {
-          height: 50,
-          paddingBottom: 5,
+          height: 55,
+          width:'full',
           borderTopWidth: 0,
           backgroundColor: '#373737',
           marginVertical: 20,
-          marginHorizontal: 60,
+          marginHorizontal: 40,
           borderRadius: 25,
           position: "absolute",
+          paddingBottom: Platform.OS === 'ios' ? 2 : 0, //buat ios
         },
         tabBarLabel: ({}) => {
         },
@@ -82,8 +81,9 @@ const App = () => {
   return (
     <NativeBaseProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen name="Tabs" component={Tabs} options={noHead} />
+          <Stack.Screen name="Splash" component={Splash} options={noHead} />
 
           <Stack.Screen
             name="Product"
@@ -121,11 +121,6 @@ const App = () => {
             options={noHead}
           />
           <Stack.Screen
-            name="TransaksiBerhasil"
-            component={TransaksiBerhasil}
-            options={noHead}
-          />
-          <Stack.Screen
             name="Cat"
             component={Cat}
             options={noHead}
@@ -133,11 +128,6 @@ const App = () => {
           <Stack.Screen
             name="Faq"
             component={Faqs}
-            options={noHead}
-          />
-          <Stack.Screen
-            name="Pembelian"
-            component={Pembelian}
             options={noHead}
           />
            <Stack.Screen
