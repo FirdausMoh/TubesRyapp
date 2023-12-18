@@ -1,4 +1,3 @@
-
 const dataCat = [
   {
     id: 1,
@@ -9,7 +8,9 @@ const dataCat = [
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/Avitex_SWhN3Wh.width-800.format-webp.webp",
     Price:"Rp 40.000",
-    content: "Cat Avitex per atu kilo",
+    price:'40000',
+    content: "Cat Avitex Biru",
+    deskripsi : "Cat Avitex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
   {
     id: 2,
@@ -18,8 +19,10 @@ const dataCat = [
     title: " Cat Vinilex",
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Vinilex.width-800.format-webp.webp",
-    Price: "Rp 19.000",
-    content: "Cat Vinilex per satu kilo",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Vinilex Biru",
+      deskripsi : "Cat Vinilex warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
   {
     id: 3,
@@ -28,8 +31,10 @@ const dataCat = [
     title: "Cat Dulux",
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/Dulux_Catylac.width-800.format-webp.webp",
-    Price: "Rp 150.000",
-    content: "Cat Dulux per satu kilo",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Dulux Merah",
+      deskripsi : "Cat dulux warna merah merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
   {
     id: 4,
@@ -38,8 +43,10 @@ const dataCat = [
     title: "Cat Nippon Paint",
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/Nippon_Paint.width-800.format-webp_bgQSK64.webp",
-    Price: "Rp 480.000",
-    content: "Cat Nippon Paint per satu kilo",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Nippon Paint Hijau",
+      deskripsi : "Cat Nippon Paint warna Hijau merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
   {
     id: 5,
@@ -48,8 +55,10 @@ const dataCat = [
     title: "Cat Jotun",
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/Jotun.width-800.format-webp.webp",
-    Price: "Rp 200.000",
-    content: "Cat Jotun per satu kilo",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat Jotun Putih",
+      deskripsi : "Cat Jotun warna putih merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
   {
     id: 6,
@@ -58,69 +67,12 @@ const dataCat = [
     title: "Cat No Drop",
     image:
       "https://o-cdn-cas.sirclocdn.com/parenting/images/No_Drop.width-800.format-webp.webp",
-    Price: "Rp 50.000",
-    content: "Cat No Drop per satu kilo",
+      Price:"Rp 40.000",
+      price:'40000',
+      content: "Cat NoDrop Biru",
+      deskripsi : "Cat NoDrop warna biru merupakan salah satu jenis cat tembok yang populer. Produk ini biasanya digunakan untuk melapisi permukaan tembok dalam ruangan atau eksterior bangunan. Cat Avitex memiliki formula khusus yang memberikan perlindungan dan daya tahan terhadap cuaca, sehingga cocok digunakan di area luar rumah."
   },
-  {
-    id: 7,
-    category:
-    "Cat",
-    title: "Cat Aquaproof",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Aquaproof.width-800.format-webp.webp",
-    Price: "Rp 70.000",
-    content: "Cat Aquaproof per satu kilo",
-  },
-  {
-    id: 8,
-    category:
-    "Cat",
-    title: "Cat Decolith",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/decolith.width-800.format-webp.webp",
-    Price: "Rp 40.000",
-    content: "Cat Decolith per satu kilo",
-  },
-  {
-    id: 9,
-    category:
-    "Cat",
-    title: "Cat  Danabrite",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Danabrite.width-800.format-webp.webp",
-    Price: "Rp 200.000",
-    content: "Cat Danabrite per satu kilo",
-  },
-  {
-    id: 10,
-    category:
-    "Cat",
-    title: "Cat Mowilex",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Mowilex.width-800.format-webp.webp",
-    Price: "Rp 200.000",
-    content: "Cat Mowilex per satu kilo",
-  },
-  {
-    id: 11,
-    category:
-    "Cat",
-    title: "Cat  Kansai Paint",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Kansai_Paint_Anti-Mosquito.width-800.format-webp.webp",
-    Price: "Rp 80.000",
-    content: "Cat Kansai Paint per satu kilo",
-  },
-  {
-    id: 12,
-    category:
-    "Cat",
-    title: "Cat  Sanlex",
-    image:
-      "https://o-cdn-cas.sirclocdn.com/parenting/images/Sanlex.width-800.format-webp.webp",
-    Price: "Rp 50.000",
-    content: "Cat Sanlex per satu kilo",
-  },
+  
 ];
 
 export default dataCat;
