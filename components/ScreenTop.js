@@ -20,7 +20,7 @@ const ScreenTop = ({ title, withBack = false }) => {
             <Ionicons name="arrow-back"  size={40} color="black"/>
             </Box>
           </TouchableOpacity>
-            <Heading color={"red.600"} marginLeft={2}>
+            <Heading color={"#006664"} marginLeft={2}>
               {title}
             </Heading>
           </HStack>
