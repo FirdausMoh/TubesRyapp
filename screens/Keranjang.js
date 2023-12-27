@@ -1,190 +1,303 @@
-import React, { useState } from 'react';
-import { Heading, View, Radio, Text, Box, Image, Button, HStack, VStack, FormControl, Input, Modal } from 'native-base';
-import { ScreenTop } from '../components';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { TouchableOpacity } from "react-native";
+import {
+  Heading,
+  View,
+  Radio,
+  Text,
+  Box,
+  Image,
+  Button,
+  HStack,
+  VStack,
+  FormControl,
+  Input,
+  Modal,
+  ScrollView,
+  Center,
+} from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { TouchableOpacity } from 'react-native';
+import { ScreenTop } from "../components";
+import FIREBASE from "../config/FIREBASE";
 
-
-
-const Keranjang = ({ route }) => {
-  const [cartItems, setCartItems] = useState([route.params.item]); // Menyimpan item-item dalam keranjang
-  const { image, title, content, price, Price } = route.params.item;
-  const navigation = useNavigation();
-
-  const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(price);
-  const [showModal, setShowModal] = useState(false);
+const Keranjang = () => {
+  const [cartItems, setCartItems] = useState([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const handleQuantityChange = (change) => {
-    const newQuantity = quantity + change;
-    if (newQuantity > 0) {
-      setQuantity(newQuantity);
-      setTotalPrice(price * newQuantity);
+  useEffect(() => {
+    const getCartItems = async () => {
+      try {
+        const storedCart = await AsyncStorage.getItem("keranjang");
+        if (storedCart) {
+          setCartItems(JSON.parse(storedCart));
+        }
+      } catch (error) {
+        console.error("Gagal mengambil data keranjang:", error);
+      }
+    };
+
+    getCartItems();
+  }, []);
+
+  const updateCart = async (updatedCartItems) => {
+    try {
+      await AsyncStorage.setItem("keranjang", JSON.stringify(updatedCartItems));
+    } catch (error) {
+      console.error("Gagal menyimpan data keranjang:", error);
     }
   };
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('bankTransfer');
-  const formatRupiah = (number) => {
-  const formattedNumber = new Intl.NumberFormat('id-ID', {
-    currency: 'IDR'
-  }).format(number);
 
-  return formattedNumber;
-};
+  const removeFromCart = (index) => {
+    const updatedCartItems = [...cartItems];
+    updatedCartItems.splice(index, 1);
+    setCartItems(updatedCartItems);
+    updateCart(updatedCartItems);
+  };
+  // Fungsi untuk menyimpan data ke Firebase Realtime Database
+  const simpanKeFirebase = async () => {
+    try {
+      const user = FIREBASE.auth().currentUser;
+      if (user && cartItems.length >= 3) {
+        // Validasi minimal 3 produk dalam keranjang
+        const userEmail = user.email;
+        const databaseRef = FIREBASE.database().ref("pesanan");
+
+        const pesananData = {
+          totalHarga: calculateTotal(),
+          userEmail: userEmail,
+          timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
+        };
+        cartItems.forEach(async (item, index) => {
+          pesananData[`namaproduct_${index}`] = item.namaproduct;
+          pesananData[`quantity_${index}`] = item.quantity;
+        });
+
+        await databaseRef.push().set(pesananData);
+
+        console.log("Data berhasil disimpan ke Firebase Realtime Database.");
+        setShowSuccessModal(true);
+
+        // Menghapus item dari keranjang setelah berhasil disimpan
+        setCartItems([]); // Mengosongkan keranjang
+      } else {
+        console.log("Minimal pembelian tidak terpenuhi");
+        // Tambahkan pesan kesalahan atau tindakan lain jika minimal 3 produk tidak terpenuhi
+      }
+    } catch (error) {
+      console.error("Gagal menyimpan ke Realtime Database:", error);
+    }
+  };
+  const increaseQuantity = (index) => {
+    const updatedCartItems = [...cartItems];
+    updatedCartItems[index].quantity =
+      (updatedCartItems[index].quantity || 0) + 1;
+    setCartItems(updatedCartItems);
+    updateCart(updatedCartItems);
+  };
+
+  const decreaseQuantity = (index) => {
+    const updatedCartItems = [...cartItems];
+    if (updatedCartItems[index].quantity > 1) {
+      updatedCartItems[index].quantity -= 1;
+      setCartItems(updatedCartItems);
+      updateCart(updatedCartItems);
+    }
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => {
+      return total + (item.harga || 0) * (item.quantity || 0);
+    }, 0);
+  };
+
+  const formatToRupiah = (amount) => {
+    return new Intl.NumberFormat("id-ID", { currency: "IDR" }).format(amount);
+  };
+
   return (
-    <>
+    <View flex={1}>
       <ScreenTop shadow={3} />
-      <View flex={1}>
       <Box m={5}>
-      <Text fontSize={20} fontWeight={'bold'} color={"#006664"}>Keranjang Saya</Text>
-      <Box backgroundColor={'white'} mt={5} shadow={3} borderWidth={1} borderColor={'#006664'} rounded={30}>
-          <HStack my={5} mx={3}>
-            <Box backgroundColor={'gray.100'} borderRadius={20}>
-              <Image
-                source={{ uri: image }}
-                width={140}
-                height={140}
-                alt={title}
-                resizeMode="contain"
-                borderRadius={20}
-              />
-            </Box>
-            <Box>
-              <VStack>
-              <Box mx={4} mt={2}>
-                <Box ml={3}>
-                <Heading color={'black'} fontSize={16} mb={4}>
-                  {content}
-                </Heading>
-                <Heading color={'gray.500'} fontSize={16} mb={4}>
-                  {Price}
-                </Heading>
+        <Text fontSize={20} fontWeight={"bold"} color={"#006664"}>
+          Keranjang Saya
+        </Text>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {cartItems.map((item, index) => (
+            <Box
+              key={index}
+              backgroundColor={"white"}
+              mt={4}
+              shadow={3}
+              borderWidth={2}
+              borderColor={"#006664"}
+              rounded={10}
+            >
+              <HStack justifyContent={"space-between"}>
+                <Box
+                  mx={2}
+                  my={4}
+                  backgroundColor={"white"}
+                  w={"25%"}
+                  rounded={20}
+                >
+                  <Image
+                    source={{ uri: item.gambar }}
+                    resizeMode="contain"
+                    h={20}
+                    alt="gambar"
+                    my={5}
+                  />
                 </Box>
-                <HStack alignItems={'center'} mr={10} >
+                <Box w={"45%"}>
+                  <VStack mx={2} my={4}>
+                    <Box>
+                      <Text fontSize={18} fontWeight={"bold"}>
+                        {item.namaproduct}
+                      </Text>
+                      <Text fontSize={12} color={"gray.400"}>
+                        Biaya Pengiriman Dihitung Saat Checkout
+                      </Text>
+                    </Box>
+                    <Box mt={2}>
+                      <Heading fontSize={18} color={"#006664"}>
+                        Rp {formatToRupiah(item.harga)}
+                      </Heading>
+                      <Box flexDirection={"row"} alignItems={"center"}>
+                        <TouchableOpacity
+                          onPress={() => decreaseQuantity(index)}
+                        >
+                          <Ionicons
+                            name="remove-circle"
+                            size={25}
+                            color="#006664"
+                          />
+                        </TouchableOpacity>
+                        <Text mx={2}>{item.quantity}</Text>
+                        <TouchableOpacity
+                          onPress={() => increaseQuantity(index)}
+                        >
+                          <Ionicons
+                            name="add-circle"
+                            size={25}
+                            color="#006664"
+                          />
+                        </TouchableOpacity>
+                      </Box>
+                    </Box>
+                  </VStack>
+                </Box>
+
                 <Button
-                  onPress={() => handleQuantityChange(-1)}
-                  backgroundColor={'white'}
+                  onPress={() => removeFromCart(index)}
+                  backgroundColor="#006664"
+                  w={"20%"}
+                  borderTopRightRadius={5}
                 >
-                  <Ionicons name="remove-circle" size={25} color="#006664"/>
+                  <Heading fontSize={16} color={"white"}>
+                    Hapus
+                  </Heading>
                 </Button>
-                <Text color={'gray.900'}>{quantity}</Text>
-                <Button
-                  onPress={() => handleQuantityChange(1)}
-                  backgroundColor={'white'}
-                >
-                  <Ionicons name="add-circle" size={25} color="#006664"/>
-                </Button>
-                </HStack>
-              </Box>
-              </VStack>
+              </HStack>
             </Box>
-          </HStack>
-        </Box>
+          ))}
+          <Box h={300}></Box>
+        </ScrollView>
       </Box>
-        
-        <Box   
-          position="absolute"
-          bottom={0}
-          left={0}
-          right={0}
-          backgroundColor={'#006664'}
-          p={5}
-          m={3}
-          rounded={20}
-          >
-          <HStack justifyContent="space-between" alignItems="center">
-          <Heading fontSize={'xl'} color={"gray.100"} >Total : Rp {formatRupiah(totalPrice)}</Heading>
-          <Button onPress={() => setShowModal(true)} backgroundColor={'white'} rounded={10} >
-            <Heading fontSize={'xl'} color={'#006664'}>Bayar</Heading>
-          </Button>
-          </HStack>
-        </Box>
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+      <Box
+        position="absolute"
+        bottom={5}
+        left={0}
+        right={0}
+        backgroundColor={"white"}
+        p={3}
+        m={4}
+        rounded={30}
+        shadow={8}
+      >
+        <HStack justifyContent={"space-between"} mx={2}>
+          <Box mt={2}>
+            <Heading fontSize={20} color={"#006664"}>
+              Total : Rp {formatToRupiah(calculateTotal())}
+            </Heading>
+          </Box>
+
+          <Box>
+            <Button
+              onPress={() => setShowSuccessModal(true)}
+              backgroundColor={"#006664"}
+              rounded={20}
+            >
+              <Text fontSize={16} fontWeight={"bold"} color={"white"}>
+                Pembayaran
+              </Text>
+            </Button>
+          </Box>
+        </HStack>
+        <Modal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+        >
           <Modal.Content>
             <Modal.Header>
-              <HStack justifyContent={'space-between'}>
-                <Heading color={'#006664'}>Form Pembayaran</Heading>
-                <TouchableOpacity onPress={() => { setShowModal(false)}}>
-                <Ionicons name="close" size={25} color="#006664"/>
-                </TouchableOpacity>
-                </HStack>
-            
+              <Heading color={"#006664"} fontSize={20}>
+                KODE PEMBAYARAN
+              </Heading>
             </Modal.Header>
-            <Modal.Body>
-              <Box >
-                <FormControl>
-                <VStack mt={3}>
-                    <Heading fontSize={'sm'} color={"gray.800"} mb={3}>Nama Pembeli :</Heading>
-                    <Input backgroundColor={"gray.200"} w={'full'} h={'35px'} />
-                  </VStack>
-                  <VStack mt={3}>
-                    <Heading fontSize={'sm'} color={"gray.800"} mb={3}>Alamat Pengiriman :</Heading>
-                    <Input backgroundColor={"gray.200"} w={'full'} h={'35px'} />
-                  </VStack>
-                  <VStack mt={3}>
-                    <Heading fontSize={'sm'} color={"gray.800"} mb={3}>No Telpon :</Heading>
-                    <Input  backgroundColor={"gray.200"} w={'full'} h={'35px'} keyboardType='numeric'  />
-                  </VStack>
-                  <VStack mt={3}>
-                  <Heading color={'gray.900'} fontSize={16} mb={3}>
-                    Pilih Metode Pembayaran:
-                    </Heading>
-                    <Radio.Group
-                    name="paymentMethod"
-                    value={selectedPaymentMethod}
-                    onChange={setSelectedPaymentMethod}
-                    colorScheme= {"green"}
-                  
-                    >
-                      <VStack space={3}>
-                        <Radio value="bankTransfer">
-                          <Text color={'gray.900'}>Transfer Bank</Text>
-                        </Radio>
-                        <Radio value="creditCard">
-                          <Text color={'gray.900'}>LinkAja</Text>
-                        </Radio>
-                        <Radio value="eWallet">
-                          <Text color={'gray.900'}>Dana</Text>
-                        </Radio>
-                      </VStack>
-                    </Radio.Group>
-                  </VStack>
+            <Modal.Body mt={4}>
+              <Box backgroundColor={"white"} rounded={20}>
+                <Center>
+                <Heading fontSize={20}>3167 0101 5812 508</Heading>
 
-                </FormControl>
+                </Center>
+                <Box justifyContent={"flex-start"} mt={4}>
+                  <Heading fontSize={14}>
+                    Tata Cara Pembayaran : 
+                  </Heading>
+                  <Text>
+                    1. Gunakan layanan perbankan Anda (mobile banking, internet banking, atau ATM) untuk melakukan transfer uang ke rekening yang disediakan
+                    </Text>
+                    <Text>
+                    2. Pastikan untuk memasukkan jumlah nominal yang benar 
+                    </Text>
+                    <Text>
+                    3. Simpan bukti transfer atau lakukan screenshoot pada bukti transfer
+                    </Text>
+                    <Text>
+                    4. Pergi Kehalaman Form Bukti Pembayaran pada profile
+                    </Text>
+                    <Text>
+                    5. Isi form dengan lengkap dan upload foto bukti Pembayaran
+                    </Text>
+                    <Text>
+                    6. Pemesanan akan diproses
+                  </Text>
+                </Box>
+                
+                <Button
+                  m={10}
+                  borderRadius={10}
+                  onPress={async () => {
+                    simpanKeFirebase();
+                    setShowSuccessModal(false); // Menutup modal saat tombol OK ditekan
+                    try {
+                      await AsyncStorage.removeItem("keranjang"); // Menghapus item dari AsyncStorage
+                      setCartItems([]); // Mengosongkan keranjang
+                    } catch (error) {
+                      console.error("Gagal menghapus data keranjang:", error);
+                    }
+                  }}
+                  backgroundColor={"#006664"}
+                >
+                  <Heading color={"white"}>OK</Heading>
+                </Button>
               </Box>
             </Modal.Body>
-            <Modal.Footer>
-              <Button backgroundColor={'#006664'} onPress={() => {setShowSuccessModal(true);setShowModal(false)}}>Bayar</Button>
-            </Modal.Footer>
           </Modal.Content>
         </Modal>
-        <Modal isOpen={showSuccessModal} onClose={() => setShowSuccessModal(false)}>
-  <Modal.Content>
-    <Modal.Header>
-      Informasi Pembayaran
-    <Ionicons></Ionicons>
-    </Modal.Header>
-    <Modal.Body >
-      <Box backgroundColor={"white"} alignItems={'center'} rounded={20}>
-            <Image
-              source={require("../assets/JAAA.png")}
-              w="200px"
-              h="200px"
-              alt="Logo"
-              resizeMode="cover"
-            />
-            <Heading>Pembayaran Berhasil</Heading>
-          <Button m={10} borderRadius={10} onPress={() => { setShowSuccessModal(false)}} backgroundColor={'#006664'}>
-            <Heading color={"white"}>OK</Heading>
-          </Button>
       </Box>
-    </Modal.Body>
-  </Modal.Content>
-</Modal>
-        
-      </View>
-    </>
+    </View>
   );
 };
 
