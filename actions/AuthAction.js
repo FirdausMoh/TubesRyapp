@@ -155,6 +155,7 @@ export const deleteNote = async (noteId) => {
     await noteRef.remove();
     console.log("Note deleted successfully");
   } catch (error) {
-    throw error;
-  }
+    throw error;
+  }
 };
+
