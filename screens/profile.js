@@ -43,7 +43,7 @@ const Profile = () => {
         </Box>
         <Box borderBottomWidth={1} borderColor={"gray.300"} p={3}>
         <TouchableOpacity activeOpacity={0.5}
-        onPress={() => navigation.navigate("History")}><Text fontSize={'2xl'} fontWeight={"semibold"}>Catatan Pembelian</Text>
+        onPress={() => navigation.navigate("Pembayaran")}><Text fontSize={'2xl'} fontWeight={"semibold"}>Catatan Pembelian</Text>
         </TouchableOpacity>
         </Box>
         <Box borderBottomWidth={1} borderColor={"gray.300"} p={3}>
