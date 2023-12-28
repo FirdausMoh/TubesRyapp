@@ -10,13 +10,15 @@ import {
   Center,
   HStack,
   Modal,
+  Select,
 } from "native-base";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FIREBASE from "../config/FIREBASE";
 import ScreenTop from "../components/ScreenTop";
 import { Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Pembayaran = () => {
   const [Nama, setNama] = useState("");
@@ -26,6 +28,99 @@ const Pembayaran = () => {
   const [Pesan, setPesan] = useState("");
   const [image, setImage] = useState(null);
   const [modal, setModal] = useState(false);
+  const [provinces, setProvinces] = useState([]);
+  const [regencies, setRegencies] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [selectedProvince, setSelectedProvince] = useState("");
+  const [selectedRegency, setSelectedRegency] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const user = FIREBASE.auth().currentUser;
+        if (user) {
+          const userRef = FIREBASE.database().ref(`users/${user.uid}`);
+          userRef.once("value", (snapshot) => {
+            const userDataFromDatabase = snapshot.val();
+            setNama(userDataFromDatabase.nama);
+            setnoTelpon(userDataFromDatabase.nohp);
+            setEmail(userDataFromDatabase.email);
+            // Set state untuk data lainnya jika ada
+          });
+        } else {
+          console.log("User not logged in!");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+
+    const fetchProvinces = async () => {
+      try {
+        const response = await fetch(
+          "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setProvinces(data);
+        } else {
+          throw new Error("Gagal mengambil data provinsi");
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle error, bisa menampilkan pesan kepada pengguna
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  const fetchRegencies = async (provinceId) => {
+    try {
+      const response = await fetch(
+        `https://emsifa.github.io/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setRegencies(data);
+      } else {
+        throw new Error("Gagal mengambil data kabupaten/kota");
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+
+  const fetchDistricts = async (regencyId) => {
+    try {
+      const response = await fetch(
+        `https://emsifa.github.io/api-wilayah-indonesia/api/districts/${regencyId}.json`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setDistricts(data);
+      } else {
+        throw new Error("Gagal mengambil data kecamatan");
+      }
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+  const handleProvinceChange = (provinceId) => {
+    setSelectedProvince(provinceId);
+    setSelectedRegency("");
+    fetchRegencies(provinceId);
+  };
+
+  const handleRegencyChange = (regencyId) => {
+    setSelectedRegency(regencyId);
+    fetchDistricts(regencyId);
+  };
 
   const handleModalOpen = () => {
     if (Nama && NoTelpon && Email && Alamat && image) {
@@ -56,6 +151,9 @@ const Pembayaran = () => {
         setEmail("");
         setAlamat("");
         setPesan("");
+        setProvinces([]);
+        setRegencies([]);
+        setDistricts([]);
         setImage(null);
       })
       .catch((error) => {
@@ -123,11 +221,76 @@ const Pembayaran = () => {
                 backgroundColor={"white"}
                 shadow={4}
               />
-              <FormControl.Label> Alamat Lengkap</FormControl.Label>
+              <FormControl.Label> Provinsi </FormControl.Label>
+              <Select
+                selectedValue={selectedProvince}
+                onValueChange={(itemValue) => handleProvinceChange(itemValue)}
+                h={12}
+                backgroundColor={"white"}
+                
+              >
+                <Select.Item label="Pilih Provinsi" value="" />
+                {provinces.map((province) => (
+                  <Select.Item
+                    key={province.id}
+                    label={province.name}
+                    value={province.id}
+                    onChangeText={setProvinces}
+                  />
+                ))}
+              </Select>
+
+              <FormControl.Label> Kabupaten/Kota </FormControl.Label>
+              <Select
+                selectedValue={selectedRegency}
+                onValueChange={(itemValue) => handleRegencyChange(itemValue)}
+                h={12}
+                backgroundColor={"white"}
+             
+              >
+                <Select.Item label="Pilih Kabupaten/Kota" value="" />
+                {regencies.map((regency) => (
+                  <Select.Item
+                    key={regency.id}
+                    label={regency.name}
+                    value={regency.id}
+                    onChangeText={setRegencies}
+                  />
+                ))}
+              </Select>
+
+              <FormControl.Label> Kecamatan/District </FormControl.Label>
+              <Select
+                selectedValue={selectedDistrict}
+                onValueChange={(itemValue) => setSelectedDistrict(itemValue)}
+                h={12}
+                backgroundColor={"white"}
+  
+              >
+                <Select.Item label="Pilih Kecamatan/District" value="" />
+                {districts.map((district) => (
+                  <Select.Item
+                    key={district.id}
+                    label={district.name}
+                    value={district.id}
+                    onChangeText={setDistricts}
+                  />
+                ))}
+              </Select>
+              <FormControl.Label>
+                {" "}
+                Tambahkan Informasi Alamat{" "}
+              </FormControl.Label>
               <Input
-                placeholder="Alamat"
-                value={Alamat}
-                onChangeText={setAlamat}
+                placeholder="Masukkan Detail Alamat Seperti Blok/nomer rumah"
+                value={`${
+                  provinces.find((p) => p.id === selectedProvince)?.name || ""
+                }, ${
+                  regencies.find((r) => r.id === selectedRegency)?.name || ""
+                }, ${
+                  districts.find((d) => d.id === selectedDistrict)?.name || ""
+                }, ${Alamat}`}
+                onChangeText={(text) => setAlamat(text)}
                 h={12}
                 backgroundColor={"white"}
                 shadow={4}
