@@ -1,4 +1,4 @@
-import { Heading, Image, Text, FlatList, VStack} from "native-base";
+import { Heading, Image, Text, FlatList, VStack } from "native-base";
 import { Box, ScrollView } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -11,21 +11,27 @@ const Faqs = () => {
     return (
       <ScrollView>
         <VStack mt={15}>
-          <Box ml={5} mr={5} mt={2} >
-          <Box backgroundColor={"white"} rounded={"lg"} shadow={2} >
-            <Box>
-            <Box borderBottomColor={"coolGray.300"}
-          borderBottomWidth={2}>
-            <Heading mb={4} mt={5} ml={5} mr={5}  fontSize={16}>
-              {item.title}
-            </Heading>
-            </Box>
-            <Text mb={4} ml={5} mt={5} mr={5} fontSize={14} fontWeight={'normal'}>
-              {item.content}
-            </Text>
+          <Box ml={5} mr={5} mt={2}>
+            <Box backgroundColor={"white"} rounded={"lg"} shadow={2}>
+              <Box>
+                <Box borderBottomColor={"coolGray.300"} borderBottomWidth={2}>
+                  <Heading mb={4} mt={5} ml={5} mr={5} fontSize={16}>
+                    {item.title}
+                  </Heading>
+                </Box>
+                <Text
+                  mb={4}
+                  ml={5}
+                  mt={5}
+                  mr={5}
+                  fontSize={14}
+                  fontWeight={"normal"}
+                >
+                  {item.content}
+                </Text>
+              </Box>
             </Box>
           </Box>
-        </Box>
         </VStack>
       </ScrollView>
     );
@@ -34,7 +40,9 @@ const Faqs = () => {
   return (
     <>
       <ScreenTop title={"FAQ"} />
-      <Heading  ml={5} mb={4} mt={5} fontSize={20}>Pertanyaan yang Sering Ditanyakan</Heading>
+      <Heading ml={5} mb={4} mt={5} fontSize={20}>
+        Pertanyaan yang Sering Ditanyakan
+      </Heading>
       <FlatList
         data={dataFaq}
         renderItem={renderitem}
