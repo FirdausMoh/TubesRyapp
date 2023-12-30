@@ -18,8 +18,7 @@ import ScreenTop from "../components/ScreenTop";
 import { Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { storage } from "../config/FIREBASE";
-
+import { useRoute } from "@react-navigation/native";
 
 const Pembayaran = () => {
   const [Nama, setNama] = useState("");
@@ -35,6 +34,8 @@ const Pembayaran = () => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedRegency, setSelectedRegency] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const route = useRoute();
+  const { cartItems, totalHarga } = route.params;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -71,6 +72,7 @@ const Pembayaran = () => {
         }
       } catch (error) {
         console.error(error);
+        // Handle error, bisa menampilkan pesan kepada pengguna
       }
     };
 
@@ -90,6 +92,7 @@ const Pembayaran = () => {
       }
     } catch (error) {
       console.error(error);
+      // Handle error
     }
   };
 
@@ -106,6 +109,7 @@ const Pembayaran = () => {
       }
     } catch (error) {
       console.error(error);
+      // Handle error
     }
   };
   const handleProvinceChange = (provinceId) => {
@@ -120,7 +124,7 @@ const Pembayaran = () => {
   };
 
   const handleModalOpen = () => {
-    if (Nama && NoTelpon && Email && Alamat && image) {
+    if (Nama && NoTelpon && Email && Alamat) {
       setModal(true);
     } else {
       Alert.alert("Harap lengkapi semua form !");
@@ -133,49 +137,65 @@ const Pembayaran = () => {
         try {
           const response = await fetch(image);
           const blob = await response.blob();
-  
-          const imageName = Date.now(); // uniqname
-          const storageRef = FIREBASE.storage().ref().child(`buktiPembayaran/${imageName}`);
-  
-          // Upload gambar Storage
+
+          const imageName = Date.now(); // Nama unik untuk setiap gambar
+          const storageRef = FIREBASE.storage()
+            .ref()
+            .child(`buktiPembayaran/${imageName}`);
+
+          // Upload gambar ke Firebase Storage
           const snapshot = await storageRef.put(blob);
-  
-          // Dapatkan URL dari Storage
+
+          // Dapatkan URL gambar dari Firebase Storage
           const imageUrl = await snapshot.ref.getDownloadURL();
-  
+
           return imageUrl;
         } catch (error) {
           console.error("Gagal mengunggah gambar:", error);
           throw new Error("Gagal mengunggah gambar");
         }
       };
-  
-      uploadImage().then((imageUrl) => {
-        FIREBASE.database().ref("formData").push({
-          Nama,
-          NoTelpon,
-          Email,
-          Alamat,
-          Pesan,
-          imageUrl,
+
+      uploadImage()
+        .then((imageUrl) => {
+          const pesananData = {
+            totalHarga: totalHarga, 
+            userEmail: Email, 
+            timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
+            products: {}, // Buat objek kosong untuk menyimpan data produk
+            imageUrl,
+            Alamat,
+            Nama,
+            Pesan,
+            Nama,
+          };
+
+          cartItems.forEach(async (item, index) => {
+            pesananData[`namaproduct_${index}`] = item.namaproduct;
+            pesananData[`quantity_${index}`] = item.quantity;
+          });
+
+          // Simpan data ke Firebase Database
+          FIREBASE.database().ref("pesanan").push(pesananData);
+
+          console.log("Data berhasil terkirim ke Firebase!");
+          setModal(false);
+
+          // Mengosongkan nilai state
+          setNama("");
+          setnoTelpon("");
+          setEmail("");
+          setAlamat("");
+          setPesan("");
+          setProvinces([]);
+          setRegencies([]);
+          setDistricts([]);
+          setImage(null);
+        })
+        .catch((error) => {
+          console.error("Gagal menyimpan data:", error);
+          Alert.alert("Gagal menyimpan data!");
         });
-  
-        console.log("Data berhasil terkirim ke Firebase!");
-        setModal(false);
-  
-        setNama("");
-        setnoTelpon("");
-        setEmail("");
-        setAlamat("");
-        setPesan("");
-        setProvinces([]);
-        setRegencies([]);
-        setDistricts([]);
-        setImage(null);
-      }).catch((error) => {
-        console.error("Gagal menyimpan data:", error);
-        Alert.alert("Gagal menyimpan data!");
-      });
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       Alert.alert("Terjadi kesalahan!");
@@ -198,19 +218,44 @@ const Pembayaran = () => {
     });
 
     if (!result.cancelled) {
+      // Menggunakan kunci "assets" untuk mengakses gambar yang dipilih
       setImage(result.assets[0].uri);
     } else {
       console.log("Pemilihan gambar dibatalkan");
     }
   };
+  const formatToRupiah = (amount) => {
+    return new Intl.NumberFormat("id-ID", { currency: "IDR" }).format(amount);
+  };
   return (
     <>
       <ScreenTop />
       <ScrollView flex={1}>
-        <Box my={5} mx={5}>
+        <Box my={5} mx={4}>
           <Heading mb={4} fontSize={18} color={"#006664"}>
             Form Pembayaran
           </Heading>
+          <Box backgroundColor={"white"} p={4} rounded={10}>
+            <Heading fontSize={18} mb={2}>
+              Informasi Pesanan :
+            </Heading>
+            {cartItems.map((item, index) => (
+              <Box key={index}>
+                <HStack
+                  justifyContent={"space-between"}
+                  alignItems={"flex-start"}
+                >
+                  <Text fontSize={14}>Nama Produk: {item.namaproduct}</Text>
+                  <Text mt={2}> X {item.quantity}</Text>
+                </HStack>
+
+                {/* Tambahan informasi lainnya sesuai kebutuhan */}
+              </Box>
+            ))}
+            <Box mt={2}>
+              <Text bold>Total Harga: Rp {formatToRupiah(totalHarga)}</Text>
+            </Box>
+          </Box>
           <Box>
             <FormControl>
               <FormControl.Label> Nama Lengkap</FormControl.Label>
@@ -278,7 +323,7 @@ const Pembayaran = () => {
                 ))}
               </Select>
 
-              <FormControl.Label> Kecamatan</FormControl.Label>
+              <FormControl.Label> Kecamatan/District </FormControl.Label>
               <Select
                 selectedValue={selectedDistrict}
                 onValueChange={(itemValue) => setSelectedDistrict(itemValue)}
@@ -286,7 +331,7 @@ const Pembayaran = () => {
                 backgroundColor={"white"}
                 shadow={4}
               >
-                <Select.Item label="Pilih Kecamatan" value="" />
+                <Select.Item label="Pilih Kecamatan/District" value="" />
                 {districts.map((district) => (
                   <Select.Item
                     key={district.id}
@@ -333,7 +378,7 @@ const Pembayaran = () => {
                       backgroundColor={"gray.200"}
                       size={100}
                       mt={4}
-                      display={!image ? "flex" : "none"} 
+                      display={!image ? "flex" : "none"} // Menyembunyikan box  saat ada gambar
                     >
                       <Center mt={4}>
                         <Ionicons name="cloud-upload" size={60} color="gray" />

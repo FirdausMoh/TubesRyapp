@@ -20,10 +20,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { ScreenTop } from "../components";
 import FIREBASE from "../config/FIREBASE";
+import { useNavigation } from "@react-navigation/native";
 
 const Keranjang = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -60,32 +62,31 @@ const Keranjang = () => {
     updateCart(updatedCartItems);
   };
 
-  const simpanKeFirebase = async () => {
-    try {
-      const user = FIREBASE.auth().currentUser;
-      const userEmail = user.email;
-      const databaseRef = FIREBASE.database().ref("pesanan");
+  // const simpanKeFirebase = async () => {
+  //   try {
+  //     const user = FIREBASE.auth().currentUser;
+  //       const userEmail = user.email;
+  //       const databaseRef = FIREBASE.database().ref("pesanan");
 
-      const pesananData = {
-        totalHarga: calculateTotal(),
-        userEmail: userEmail,
-        timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
-      };
-      cartItems.forEach(async (item, index) => {
-        pesananData[`namaproduct_${index}`] = item.namaproduct;
-        pesananData[`quantity_${index}`] = item.quantity;
-      });
+  //       const pesananData = {
+  //         totalHarga: calculateTotal(),
+  //         userEmail: userEmail,
+  //         timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
+  //       };
+  //       cartItems.forEach(async (item, index) => {
+  //         pesananData[`namaproduct_${index}`] = item.namaproduct;
+  //         pesananData[`quantity_${index}`] = item.quantity;
+  //       });
 
-      await databaseRef.push().set(pesananData);
+  //       await databaseRef.push().set(pesananData);
 
-      console.log("Data berhasil disimpan ke Firebase Realtime Database.");
-      setShowSuccessModal(true);
-      setCartItems([]);
-      
-    } catch (error) {
-      console.error("Gagal menyimpan ke Realtime Database:", error);
-    }
-  };
+  //       console.log("Data berhasil disimpan ke Firebase Realtime Database.");
+  //       setShowSuccessModal(true);
+
+  //   } catch (error) {
+  //     console.error("Gagal menyimpan ke Realtime Database:", error);
+  //   }
+  // };
   const increaseQuantity = (index) => {
     const updatedCartItems = [...cartItems];
     updatedCartItems[index].quantity =
@@ -275,7 +276,10 @@ const Keranjang = () => {
                   m={10}
                   borderRadius={10}
                   onPress={async () => {
-                    simpanKeFirebase();
+                    navigation.navigate("Pembayaran", {
+                      cartItems,
+                      totalHarga: calculateTotal(),
+                    });
                     setShowSuccessModal(false);
                   }}
                   backgroundColor={"#006664"}
