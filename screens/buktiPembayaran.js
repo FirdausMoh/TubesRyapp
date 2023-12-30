@@ -18,7 +18,8 @@ import ScreenTop from "../components/ScreenTop";
 import { Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storage } from "../config/FIREBASE";
+
 
 const Pembayaran = () => {
   const [Nama, setNama] = useState("");
@@ -46,7 +47,6 @@ const Pembayaran = () => {
             setNama(userDataFromDatabase.nama);
             setnoTelpon(userDataFromDatabase.nohp);
             setEmail(userDataFromDatabase.email);
-            // Set state untuk data lainnya jika ada
           });
         } else {
           console.log("User not logged in!");
@@ -71,7 +71,6 @@ const Pembayaran = () => {
         }
       } catch (error) {
         console.error(error);
-        // Handle error, bisa menampilkan pesan kepada pengguna
       }
     };
 
@@ -91,7 +90,6 @@ const Pembayaran = () => {
       }
     } catch (error) {
       console.error(error);
-      // Handle error
     }
   };
 
@@ -108,7 +106,6 @@ const Pembayaran = () => {
       }
     } catch (error) {
       console.error(error);
-      // Handle error
     }
   };
   const handleProvinceChange = (provinceId) => {
@@ -131,21 +128,41 @@ const Pembayaran = () => {
   };
 
   const sendDataToFirebase = () => {
-    FIREBASE.database()
-      .ref("formData")
-      .push({
-        Nama,
-        NoTelpon,
-        Email,
-        Alamat,
-        Pesan,
-        image,
-      })
-      .then(() => {
+    try {
+      const uploadImage = async () => {
+        try {
+          const response = await fetch(image);
+          const blob = await response.blob();
+  
+          const imageName = Date.now(); // uniqname
+          const storageRef = FIREBASE.storage().ref().child(`buktiPembayaran/${imageName}`);
+  
+          // Upload gambar Storage
+          const snapshot = await storageRef.put(blob);
+  
+          // Dapatkan URL dari Storage
+          const imageUrl = await snapshot.ref.getDownloadURL();
+  
+          return imageUrl;
+        } catch (error) {
+          console.error("Gagal mengunggah gambar:", error);
+          throw new Error("Gagal mengunggah gambar");
+        }
+      };
+  
+      uploadImage().then((imageUrl) => {
+        FIREBASE.database().ref("formData").push({
+          Nama,
+          NoTelpon,
+          Email,
+          Alamat,
+          Pesan,
+          imageUrl,
+        });
+  
         console.log("Data berhasil terkirim ke Firebase!");
         setModal(false);
-
-        // Mengosongkan nilai state
+  
         setNama("");
         setnoTelpon("");
         setEmail("");
@@ -155,11 +172,14 @@ const Pembayaran = () => {
         setRegencies([]);
         setDistricts([]);
         setImage(null);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.error("Gagal menyimpan data:", error);
         Alert.alert("Gagal menyimpan data!");
       });
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      Alert.alert("Terjadi kesalahan!");
+    }
   };
 
   const pickImage = async () => {
@@ -178,7 +198,6 @@ const Pembayaran = () => {
     });
 
     if (!result.cancelled) {
-      // Menggunakan kunci "assets" untuk mengakses gambar yang dipilih
       setImage(result.assets[0].uri);
     } else {
       console.log("Pemilihan gambar dibatalkan");
@@ -227,7 +246,7 @@ const Pembayaran = () => {
                 onValueChange={(itemValue) => handleProvinceChange(itemValue)}
                 h={12}
                 backgroundColor={"white"}
-                
+                shadow={4}
               >
                 <Select.Item label="Pilih Provinsi" value="" />
                 {provinces.map((province) => (
@@ -246,7 +265,7 @@ const Pembayaran = () => {
                 onValueChange={(itemValue) => handleRegencyChange(itemValue)}
                 h={12}
                 backgroundColor={"white"}
-             
+                shadow={4}
               >
                 <Select.Item label="Pilih Kabupaten/Kota" value="" />
                 {regencies.map((regency) => (
@@ -265,7 +284,7 @@ const Pembayaran = () => {
                 onValueChange={(itemValue) => setSelectedDistrict(itemValue)}
                 h={12}
                 backgroundColor={"white"}
-  
+                shadow={4}
               >
                 <Select.Item label="Pilih Kecamatan/District" value="" />
                 {districts.map((district) => (
@@ -314,7 +333,7 @@ const Pembayaran = () => {
                       backgroundColor={"gray.200"}
                       size={100}
                       mt={4}
-                      display={!image ? "flex" : "none"} // Menyembunyikan box  saat ada gambar
+                      display={!image ? "flex" : "none"} 
                     >
                       <Center mt={4}>
                         <Ionicons name="cloud-upload" size={60} color="gray" />

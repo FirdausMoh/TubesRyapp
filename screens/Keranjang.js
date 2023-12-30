@@ -30,7 +30,9 @@ const Keranjang = () => {
       try {
         const storedCart = await AsyncStorage.getItem("keranjang");
         if (storedCart) {
-          setCartItems(JSON.parse(storedCart));
+          const parsedCart = JSON.parse(storedCart);
+        console.log("berhasil dapat data keranjang dari AsyncStorage:", parsedCart);
+        setCartItems(parsedCart);
         }
       } catch (error) {
         console.error("Gagal mengambil data keranjang:", error);
@@ -54,12 +56,10 @@ const Keranjang = () => {
     setCartItems(updatedCartItems);
     updateCart(updatedCartItems);
   };
-  // Fungsi untuk menyimpan data ke Firebase Realtime Database
+  
   const simpanKeFirebase = async () => {
     try {
       const user = FIREBASE.auth().currentUser;
-      if (user && cartItems.length >= 3) {
-        // Validasi minimal 3 produk dalam keranjang
         const userEmail = user.email;
         const databaseRef = FIREBASE.database().ref("pesanan");
 
@@ -78,12 +78,6 @@ const Keranjang = () => {
         console.log("Data berhasil disimpan ke Firebase Realtime Database.");
         setShowSuccessModal(true);
 
-        // Menghapus item dari keranjang setelah berhasil disimpan
-        setCartItems([]); // Mengosongkan keranjang
-      } else {
-        console.log("Minimal pembelian tidak terpenuhi");
-        // Tambahkan pesan kesalahan atau tindakan lain jika minimal 3 produk tidak terpenuhi
-      }
     } catch (error) {
       console.error("Gagal menyimpan ke Realtime Database:", error);
     }
@@ -280,13 +274,7 @@ const Keranjang = () => {
                   borderRadius={10}
                   onPress={async () => {
                     simpanKeFirebase();
-                    setShowSuccessModal(false); // Menutup modal saat tombol OK ditekan
-                    try {
-                      await AsyncStorage.removeItem("keranjang"); // Menghapus item dari AsyncStorage
-                      setCartItems([]); // Mengosongkan keranjang
-                    } catch (error) {
-                      console.error("Gagal menghapus data keranjang:", error);
-                    }
+                    setShowSuccessModal(false);
                   }}
                   backgroundColor={"#006664"}
                 >

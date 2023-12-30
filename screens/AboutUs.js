@@ -182,7 +182,7 @@ const Aboutus = () => {
               >
                 <Image
                   source={require("../assets/JAAA.png")}
-                  w="140"
+                  w="100"
                   h="140"
                   alt="Logo"
                   borderRadius={100}
