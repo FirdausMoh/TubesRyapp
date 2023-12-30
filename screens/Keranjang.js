@@ -31,8 +31,11 @@ const Keranjang = () => {
         const storedCart = await AsyncStorage.getItem("keranjang");
         if (storedCart) {
           const parsedCart = JSON.parse(storedCart);
-        console.log("berhasil dapat data keranjang dari AsyncStorage:", parsedCart);
-        setCartItems(parsedCart);
+          console.log(
+            "berhasil dapat data keranjang dari AsyncStorage:",
+            parsedCart
+          );
+          setCartItems(parsedCart);
         }
       } catch (error) {
         console.error("Gagal mengambil data keranjang:", error);
@@ -56,28 +59,29 @@ const Keranjang = () => {
     setCartItems(updatedCartItems);
     updateCart(updatedCartItems);
   };
-  
+
   const simpanKeFirebase = async () => {
     try {
       const user = FIREBASE.auth().currentUser;
-        const userEmail = user.email;
-        const databaseRef = FIREBASE.database().ref("pesanan");
+      const userEmail = user.email;
+      const databaseRef = FIREBASE.database().ref("pesanan");
 
-        const pesananData = {
-          totalHarga: calculateTotal(),
-          userEmail: userEmail,
-          timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
-        };
-        cartItems.forEach(async (item, index) => {
-          pesananData[`namaproduct_${index}`] = item.namaproduct;
-          pesananData[`quantity_${index}`] = item.quantity;
-        });
+      const pesananData = {
+        totalHarga: calculateTotal(),
+        userEmail: userEmail,
+        timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
+      };
+      cartItems.forEach(async (item, index) => {
+        pesananData[`namaproduct_${index}`] = item.namaproduct;
+        pesananData[`quantity_${index}`] = item.quantity;
+      });
 
-        await databaseRef.push().set(pesananData);
+      await databaseRef.push().set(pesananData);
 
-        console.log("Data berhasil disimpan ke Firebase Realtime Database.");
-        setShowSuccessModal(true);
-
+      console.log("Data berhasil disimpan ke Firebase Realtime Database.");
+      setShowSuccessModal(true);
+      setCartItems([]);
+      
     } catch (error) {
       console.error("Gagal menyimpan ke Realtime Database:", error);
     }
@@ -242,33 +246,31 @@ const Keranjang = () => {
             <Modal.Body mt={4}>
               <Box backgroundColor={"white"} rounded={20}>
                 <Center>
-                <Heading fontSize={20}>3167 0101 5812 508</Heading>
-
+                  <Heading fontSize={20}>3167 0101 5812 508</Heading>
                 </Center>
                 <Box justifyContent={"flex-start"} mt={4}>
-                  <Heading fontSize={14}>
-                    Tata Cara Pembayaran : 
-                  </Heading>
+                  <Heading fontSize={14}>Tata Cara Pembayaran :</Heading>
                   <Text>
-                    1. Gunakan layanan perbankan Anda (mobile banking, internet banking, atau ATM) untuk melakukan transfer uang ke rekening yang disediakan
-                    </Text>
-                    <Text>
-                    2. Pastikan untuk memasukkan jumlah nominal yang benar 
-                    </Text>
-                    <Text>
-                    3. Simpan bukti transfer atau lakukan screenshoot pada bukti transfer
-                    </Text>
-                    <Text>
-                    4. Pergi Kehalaman Form Bukti Pembayaran pada profile
-                    </Text>
-                    <Text>
-                    5. Isi form dengan lengkap dan upload foto bukti Pembayaran
-                    </Text>
-                    <Text>
-                    6. Pemesanan akan diproses
+                    1. Gunakan layanan perbankan Anda (mobile banking, internet
+                    banking, atau ATM) untuk melakukan transfer uang ke rekening
+                    yang disediakan
                   </Text>
+                  <Text>
+                    2. Pastikan untuk memasukkan jumlah nominal yang benar
+                  </Text>
+                  <Text>
+                    3. Simpan bukti transfer atau lakukan screenshoot pada bukti
+                    transfer
+                  </Text>
+                  <Text>
+                    4. Pergi Kehalaman Form Bukti Pembayaran pada profile
+                  </Text>
+                  <Text>
+                    5. Isi form dengan lengkap dan upload foto bukti Pembayaran
+                  </Text>
+                  <Text>6. Pemesanan akan diproses</Text>
                 </Box>
-                
+
                 <Button
                   m={10}
                   borderRadius={10}

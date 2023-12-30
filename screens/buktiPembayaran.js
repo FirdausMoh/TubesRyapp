@@ -278,7 +278,7 @@ const Pembayaran = () => {
                 ))}
               </Select>
 
-              <FormControl.Label> Kecamatan/District </FormControl.Label>
+              <FormControl.Label> Kecamatan</FormControl.Label>
               <Select
                 selectedValue={selectedDistrict}
                 onValueChange={(itemValue) => setSelectedDistrict(itemValue)}
@@ -286,7 +286,7 @@ const Pembayaran = () => {
                 backgroundColor={"white"}
                 shadow={4}
               >
-                <Select.Item label="Pilih Kecamatan/District" value="" />
+                <Select.Item label="Pilih Kecamatan" value="" />
                 {districts.map((district) => (
                   <Select.Item
                     key={district.id}
