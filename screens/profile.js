@@ -25,7 +25,7 @@ const Profile = () => {
       try {
         const user = firebase.auth().currentUser;
         if (user) {
-          const userRef = firebase.database().ref(`users/${user.uid}`);
+          const userRef = firebase.database().ref(users/${user.uid});
           userRef.on("value", (snapshot) => {
             const userDataFromDatabase = snapshot.val();
             setUserData(userDataFromDatabase);
@@ -53,16 +53,17 @@ const Profile = () => {
   return (
     <ScrollView flex={1} backgroundColor={"white"}>
       <VStack>
-        <Box backgroundColor={"#078684"} h={"50%"}>
-          <Box backgroundColor={"#006664"} h={"70%"} roundedBottom={200}>
-            <Center mt={"15%"}>
+        <Box backgroundColor={"#078684"} h={"55%"}>
+          <Box backgroundColor={"#006664"} h={"55%"} roundedBottom={200}>
+            <Center mt={"10%"}>
               <Ionicons name="person-circle" size={100} color="black" />
-              <Heading color={"white"} mb={4}>
-                {userData ? userData.nama : "Nama"}
-              </Heading>
+              
             </Center>
           </Box>
           <Center mt={2}>
+            <Heading color={"white"}>
+                {userData ? userData.nama : "Nama"}
+              </Heading>
             <Text color={"white"} fontSize={20}>
               {userData ? userData.email : "email"}
             </Text>
@@ -72,14 +73,14 @@ const Profile = () => {
           </Center>
         </Box>
         <Box
-          bottom={12}
+          bottom={20}
           left={0}
           right={0}
           backgroundColor={"white"}
           p={3}
           m={4}
           rounded={30}
-          shadow={8}
+          shadow={4}
         >
           <Box borderBottomWidth={1} borderColor={"gray.400"} p={3}>
             <TouchableOpacity
@@ -111,23 +112,13 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </Box>
-          <Box borderBottomWidth={1} borderColor={"gray.300"} p={3}>
+          <Box  p={3}>
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => navigation.navigate("Faq")}
             >
               <Text fontSize={"2xl"} fontWeight={"semibold"}>
                 FAQs
-              </Text>
-            </TouchableOpacity>
-          </Box>
-          <Box p={3}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => navigation.navigate("Pembayaran")}
-            >
-              <Text fontSize={"2xl"} fontWeight={"semibold"}>
-                Form Bukti Pembayaran
               </Text>
             </TouchableOpacity>
           </Box>
