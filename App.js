@@ -50,7 +50,7 @@ const Tabs = () => {
               name={iconName}
               size={30}
               color={focused ? "#006664" : color}
-              style={{ marginBottom: Platform.OS === "ios" ? 2 : 0 }} // Tambahkan buat ios
+              marginBottom={ Platform.OS === "ios" ? 2 : 0 } // Tambahkan buat ios
             />
           );
         },
