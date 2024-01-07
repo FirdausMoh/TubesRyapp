@@ -5,8 +5,8 @@ import {
   VStack,
   Center,
   Heading,
-  ScrollView,
   Button,
+  View
 } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -25,7 +25,7 @@ const Profile = () => {
       try {
         const user = firebase.auth().currentUser;
         if (user) {
-          const userRef = firebase.database().ref(`users/${user.uid}`);
+          const userRef = firebase.database().ref(users/${user.uid});
           userRef.on("value", (snapshot) => {
             const userDataFromDatabase = snapshot.val();
             setUserData(userDataFromDatabase);
@@ -51,10 +51,11 @@ const Profile = () => {
   };
 
   return (
-    <ScrollView flex={1} backgroundColor={"white"}>
+    <View flex={1} backgroundColor={"white"}>
       <VStack>
-        <Box backgroundColor={"#078684"} h={"55%"}>
-          <Box backgroundColor={"#006664"} h={"55%"} roundedBottom={200}>
+        <Box backgroundColor={"#078684"} h="47%">
+        
+          <Box backgroundColor={"#006664"} roundedBottom={200} h="50%">
             <Center mt={"10%"}>
               <Ionicons name="person-circle" size={100} color="black" />
               
@@ -139,7 +140,7 @@ const Profile = () => {
           </Button>
         </Center>
       </VStack>
-    </ScrollView>
+    </View>
   );
 };
 
