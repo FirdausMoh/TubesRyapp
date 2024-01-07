@@ -39,7 +39,7 @@ const Galvalum = () => {
             </Heading>
           </Box>
         </Box>
-      </TouchableOpacity>
+      </TouchableOpacity >
     );
   };
 
