@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { ScreenTop } from "../components";
+import ScreenTop from "../components/ScreenTop2";
 import FIREBASE from "../config/FIREBASE";
 import { useNavigation } from "@react-navigation/native";
 
@@ -61,32 +61,6 @@ const Keranjang = () => {
     setCartItems(updatedCartItems);
     updateCart(updatedCartItems);
   };
-
-  // const simpanKeFirebase = async () => {
-  //   try {
-  //     const user = FIREBASE.auth().currentUser;
-  //       const userEmail = user.email;
-  //       const databaseRef = FIREBASE.database().ref("pesanan");
-
-  //       const pesananData = {
-  //         totalHarga: calculateTotal(),
-  //         userEmail: userEmail,
-  //         timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
-  //       };
-  //       cartItems.forEach(async (item, index) => {
-  //         pesananData[`namaproduct_${index}`] = item.namaproduct;
-  //         pesananData[`quantity_${index}`] = item.quantity;
-  //       });
-
-  //       await databaseRef.push().set(pesananData);
-
-  //       console.log("Data berhasil disimpan ke Firebase Realtime Database.");
-  //       setShowSuccessModal(true);
-
-  //   } catch (error) {
-  //     console.error("Gagal menyimpan ke Realtime Database:", error);
-  //   }
-  // };
   const increaseQuantity = (index) => {
     const updatedCartItems = [...cartItems];
     updatedCartItems[index].quantity =
@@ -192,9 +166,10 @@ const Keranjang = () => {
                   onPress={() => removeFromCart(index)}
                   backgroundColor="#006664"
                   w={"20%"}
-                  borderTopRightRadius={5}
+                  borderLeftRadius={0}
+                  borderRightRadius={5}
                 >
-                  <Heading fontSize={16} color={"white"}>
+                  <Heading fontSize={14} color={"white"}>
                     Hapus
                   </Heading>
                 </Button>
