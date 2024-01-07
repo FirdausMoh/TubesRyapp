@@ -30,7 +30,7 @@ const Profile = () => {
       try {
         const user = firebase.auth().currentUser;
         if (user) {
-          const userRef = firebase.database().ref(users/${user.uid});
+          const userRef = firebase.database().ref(`users/${user.uid}`);
           userRef.on("value", (snapshot) => {
             const userDataFromDatabase = snapshot.val();
             setUserData(userDataFromDatabase);
@@ -63,7 +63,7 @@ const Profile = () => {
     try {
       const user = firebase.auth().currentUser;
       if (user) {
-        const userRef = firebase.database().ref(users/${user.uid});
+        const userRef = firebase.database().ref(`users/${user.uid}`);
         await userRef.update(updatedUserData);
 
         // Change password logic

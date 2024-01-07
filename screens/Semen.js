@@ -46,7 +46,7 @@ const Semen = () => {
             const storage = getStorage();
             const imageRef = storageRef(
               storage,
-              images/${product.gambar}.jpg
+              `images/${product.gambar}.jpg`
             );
             const imageUrl = await getDownloadURL(imageRef);
             return { ...product, gambar: imageUrl };
