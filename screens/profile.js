@@ -117,6 +117,7 @@ const Profile = () => {
               activeOpacity={0.5}
               onPress={() => navigation.navigate("Faq")}
             >
+               
               <Text fontSize={"2xl"} fontWeight={"semibold"}>
                 FAQs
               </Text>
@@ -131,7 +132,10 @@ const Profile = () => {
             backgroundColor={"#006664"}
             onPress={handleLogout}
           >
-            <Heading color={"white"}>Keluar</Heading>
+            <Heading color={"white"}>
+              Keluar
+              </Heading>
+
           </Button>
         </Center>
       </VStack>

@@ -79,21 +79,23 @@ const HomeScreen = () => {
           <Box
             shadow={5}
             backgroundColor={"#FFFFFF"}
-            mx={2}
+            mx={Platform.OS === "ios" ? 2 : 3} //buat ios
             my={2}
             borderRadius={5}
             flexDirection={"column"}
-            w={190}
+            w={Platform.OS === "ios" ? 185 : 155} //buat ios
             h={180}
           >
             <Box backgroundColor={"gray.200"} py={2}>
-              <Image
-                source={{ uri: item.gambar }}
-                w="full"
-                h="100"
-                resizeMode="contain"
-                alt="Image Data"
-              />
+              <Center>
+                <Image
+                  source={{ uri: item.gambar }}
+                  w="100"
+                  h="100"
+                  resizeMode="contain"
+                  alt="Image Data"
+                />
+              </Center>
             </Box>
             <Box p={2}>
               <Text fontSize={"12"} fontWeight={"semibold"} color={"black"}>
@@ -119,7 +121,7 @@ const HomeScreen = () => {
               source={require("../assets/Suburjaya.png")}
               alt="banner"
               w="full"
-              h="3xs"
+              h={Platform.OS === "ios" ? "220" : "190"} // Tambahkan buat ios
               borderRadius={25}
             />
           </Box>
@@ -279,14 +281,16 @@ const HomeScreen = () => {
             Rekomendasi
           </Text>
         </Box>
-        <FlatList
-          data={randomProducts}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-evenly" }}
-        />
+        <Center>
+          <FlatList
+            data={randomProducts}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            columnWrapperStyle={{ justifyContent: "space-Between" }}
+          />
+        </Center>
         <Box backgroundColor={"#006664"} mt={30} h={80}>
           <Heading m={5} fontSize={20} color={"trueGray.100"}>
             Kontak Kami
@@ -300,43 +304,41 @@ const HomeScreen = () => {
           >
             <Image
               source={require("../assets/JAAA.png")}
-              w="100"
+              w={Platform.OS === "ios" ? "140" : "105"} // Tambahkan buat ios
               h="140"
               alt="Logo"
               borderRadius={100}
               resizeMode="contain"
-              mb={5}
-              mt={5}
-              ml={5}
+              my={5}
             />
             <VStack mt={8}>
-              <HStack ml={5}>
+              <HStack ml={2}>
                 <Ionicons name="logo-instagram" size={30} color="black" />
                 <Link
                   ml={5}
-                  href="https://nativebase.io"
+                  href="https://www.instagram.com/hanifbahyhasyid/?hl=en"
                   isUnderlined
                   _text={{ fontSize: "md" }}
                 >
                   @suburjaya
                 </Link>
               </HStack>
-              <HStack ml={5} mt={2}>
+              <HStack ml={2} mt={2}>
                 <Ionicons name="logo-whatsapp" size={30} color="black" />
                 <Link
                   ml={5}
-                  href="https://nativebase.io"
+                  href="whatsapp://send?text=Saya Customer Ryapp &phone=+6282229850927"
                   isUnderlined
                   _text={{ fontSize: "md" }}
                 >
                   08003337221
                 </Link>
               </HStack>
-              <HStack ml={5} mt={2}>
+              <HStack ml={2} mt={2}>
                 <Ionicons name="mail-outline" size={30} color="black" />
                 <Link
                   ml={5}
-                  href="https://nativebase.io"
+                  href="mailto:mohamadfahri302@gmail.com"
                   isUnderlined
                   _text={{ fontSize: "md" }}
                 >
