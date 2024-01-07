@@ -6,7 +6,9 @@ import {
   Center,
   Heading,
   Button,
-  View
+  View, 
+  Modal,
+  Input,
 } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -19,6 +21,9 @@ import "firebase/auth";
 const Profile = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,11 +49,43 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
-      navigation.navigate("Login");
+      navigation.replace("Login");
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
+  const handleEditProfile = () => {
+    // Set showModal to true to display the edit modal
+    setShowModal(true);
+  };
+
+  const handleSaveProfile = async (updatedUserData) => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const userRef = firebase.database().ref(users/${user.uid});
+        await userRef.update(updatedUserData);
+
+        // Change password logic
+        if (currentPassword && newPassword) {
+          const credential = firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            currentPassword
+          );
+          await user.reauthenticateWithCredential(credential);
+          await user.updatePassword(newPassword);
+        }
+
+        setShowModal(false);
+      } else {
+        console.log("User not logged in!");
+      }
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
+
 
   return (
     <View flex={1} backgroundColor={"white"}>
@@ -113,14 +150,23 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </Box>
-          <Box  p={3}>
+          <Box borderBottomWidth={1} borderColor={"gray.300"} p={3} >
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => navigation.navigate("Faq")}
             >
-               
               <Text fontSize={"2xl"} fontWeight={"semibold"}>
                 FAQs
+              </Text>
+            </TouchableOpacity>
+          </Box>
+          <Box  p={3}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={handleEditProfile}
+            >
+              <Text fontSize={"2xl"} fontWeight={"semibold"}>
+                Edit Profile
               </Text>
             </TouchableOpacity>
           </Box>
@@ -133,12 +179,57 @@ const Profile = () => {
             backgroundColor={"#006664"}
             onPress={handleLogout}
           >
-            <Heading color={"white"}>
-              Keluar
-              </Heading>
-
+            <Heading color={"white"}>Keluar</Heading>
           </Button>
         </Center>
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+          <Modal.Content>
+            <Modal.Header>
+              <Heading>Edit Profil</Heading>
+            </Modal.Header>
+            <Modal.Body>
+              {/* Form for editing profile */}
+              <VStack space={4} p={4}>
+                <Input
+                  placeholder="Nama"
+                  value={userData ? userData.nama : ""}
+                  onChangeText={(text) =>
+                    setUserData({ ...userData, nama: text })
+                  }
+                />
+                <Input
+                  placeholder="Email"
+                  value={userData ? userData.email : ""}
+                  onChangeText={(text) =>
+                    setUserData({ ...userData, email: text })
+                  }
+                />
+                <Input
+                  placeholder="No Telepon"
+                  value={userData ? userData.nohp : ""}
+                  onChangeText={(text) =>
+                    setUserData({ ...userData, nohp: text })
+                  }
+                />
+                <Input
+                  secureTextEntry
+                  placeholder="Current Password"
+                  value={currentPassword}
+                  onChangeText={(text) => setCurrentPassword(text)}
+                />
+                <Input
+                  secureTextEntry
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChangeText={(text) => setNewPassword(text)}
+                />
+                <Button onPress={() => handleSaveProfile(userData)} backgroundColor={"#006664"}>
+                  Simpan
+                </Button>
+              </VStack>
+            </Modal.Body>
+          </Modal.Content>
+        </Modal>
       </VStack>
     </View>
   );
