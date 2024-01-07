@@ -63,7 +63,7 @@ const Register = ({ navigation }) => {
   return (
     <View flex={1} backgroundColor="#016B69">
       <Center>
-      <Box backgroundColor={'#006664'} w={"full"} h={80} roundedBottom={300} shadow={9} py={10}>
+      <Box backgroundColor={'#006664'} w={"100%"} h={'35%'} roundedBottom={300} shadow={9} py={10}>
         <Center>
         <Image
           source={require ("../assets/JAAA.png")}
@@ -77,7 +77,7 @@ const Register = ({ navigation }) => {
         </Box>
 
 
-      <Box my={16} h={80}>
+      <Box my={16} h={'55%'} w={'90%'}>
         <VStack>
             <Box   mb={5}>
             <Heading color={'white'}>Selamat Datang</Heading>
@@ -88,6 +88,7 @@ const Register = ({ navigation }) => {
             placeholder="Nama"
             width="full"
             color={"gray.600"}
+            py={ Platform.OS === "ios" ? 4 : 2 } // Tambahkan buat ios
             mb={5}
             rounded={10}
             backgroundColor={"gray.200"}
@@ -98,6 +99,7 @@ const Register = ({ navigation }) => {
             placeholder="Email"
             width="full"
             color={"gray.600"}
+            py={ Platform.OS === "ios" ? 4 : 2 } // Tambahkan buat ios
             mb={5}
             rounded={10}
             backgroundColor={"gray.200"}
@@ -108,6 +110,7 @@ const Register = ({ navigation }) => {
             placeholder="No. Handphone"
             width="full"
             color={"gray.600"}
+            py={ Platform.OS === "ios" ? 4 : 2 } // Tambahkan buat ios
             mb={5}
             rounded={10}
             backgroundColor={"gray.200"}
@@ -119,6 +122,7 @@ const Register = ({ navigation }) => {
             placeholder="Password"
             width="full"
             color={"gray.600"}
+            py={ Platform.OS === "ios" ? 4 : 2 } // Tambahkan buat ios
             mb={5}
             rounded={10}
             backgroundColor={"gray.200"}

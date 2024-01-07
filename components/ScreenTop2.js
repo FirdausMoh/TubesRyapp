@@ -23,10 +23,10 @@ const ScreenTop = ({ title, withBack = false }) => {
           <HStack justifyContent={"space-between"}>
             <Box>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Keranjang")}
+                onPress={() => navigation.navigate("Home")}
               >
                 <Box px={3} py={2} borderRadius={10} bgColor="white" shadow={5}>
-                  <Ionicons name="cart-outline" size={24} color="#006664" />
+                  <Ionicons name="home" size={24} color="#006664" />
                 </Box>
               </TouchableOpacity>
             </Box>
