@@ -192,39 +192,39 @@ const Aboutus = () => {
                   ml={5}
                 />
                 <VStack mt={8}>
-                  <HStack ml={5}>
-                    <Ionicons name="logo-instagram" size={30} color="black" />
-                    <Link
-                      ml={5}
-                      href="https://nativebase.io"
-                      isUnderlined
-                      _text={{ fontSize: "md" }}
-                    >
-                      @suburjaya
-                    </Link>
-                  </HStack>
-                  <HStack ml={5} mt={2}>
-                    <Ionicons name="logo-whatsapp" size={30} color="black" />
-                    <Link
-                      ml={5}
-                      href="https://nativebase.io"
-                      isUnderlined
-                      _text={{ fontSize: "md" }}
-                    >
-                      08003337221
-                    </Link>
-                  </HStack>
-                  <HStack ml={5} mt={2}>
-                    <Ionicons name="mail-outline" size={30} color="black" />
-                    <Link
-                      ml={5}
-                      href="https://nativebase.io"
-                      isUnderlined
-                      _text={{ fontSize: "md" }}
-                    >
-                      suburjaya@gmail.com
-                    </Link>
-                  </HStack>
+                <HStack ml={2}>
+                <Ionicons name="logo-instagram" size={30} color="black" />
+                <Link
+                  ml={2}
+                  href="https://www.instagram.com/hanifbahyhasyid/?hl=en"
+                  isUnderlined
+                  _text={{ fontSize: "md" }}
+                >
+                  @suburjaya
+                </Link>
+              </HStack>
+              <HStack ml={2} mt={2}>
+                <Ionicons name="logo-whatsapp" size={30} color="black" />
+                <Link
+                  ml={2}
+                  href="whatsapp://send?text=Hello&phone=+6282229850927"
+                  isUnderlined
+                  _text={{ fontSize: "md" }}
+                >
+                  08003337221
+                </Link>
+              </HStack>
+              <HStack ml={2} mt={2}>
+                <Ionicons name="mail-outline" size={30} color="black" />
+                <Link
+                  ml={2}
+                  href="mailto:mohamadfahri302@gmail.com"
+                  isUnderlined
+                  _text={{ fontSize: "md" }}
+                >
+                  suburjaya@gmail.com
+                </Link>
+              </HStack>
                 </VStack>
               </HStack>
             </Box>
