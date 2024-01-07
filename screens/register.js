@@ -146,7 +146,7 @@ const Register = ({ navigation }) => {
             <Box>
               <Button
                 backgroundColor={"#006664"}
-                rounded={10}
+                rounded={12}
                 padding={3}
                 onPress={() => {
                   onRegister();
