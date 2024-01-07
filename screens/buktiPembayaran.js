@@ -11,6 +11,7 @@ import {
   HStack,
   Modal,
   Select,
+  Spinner,
 } from "native-base";
 import React, { useState, useEffect } from "react";
 import FIREBASE from "../config/FIREBASE";
@@ -37,6 +38,7 @@ const Pembayaran = () => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedRegency, setSelectedRegency] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -124,7 +126,7 @@ const Pembayaran = () => {
   };
 
   const handleModalOpen = () => {
-    if (Nama && NoTelpon && Email && Alamat) {
+    if (Nama && NoTelpon && Email && Alamat && Image) {
       setModal(true);
     } else {
       Alert.alert("Harap lengkapi semua form !");
@@ -132,6 +134,7 @@ const Pembayaran = () => {
   };
 
   const sendDataToFirebase = () => {
+    setIsLoading(true);
     try {
       const uploadImage = async () => {
         try {
@@ -180,6 +183,7 @@ const Pembayaran = () => {
 
           console.log("Data berhasil terkirim ke Firebase!");
           setModal(false);
+          setIsLoading(false);
 
           // Mengosongkan nilai state
           setNama("");
@@ -195,10 +199,12 @@ const Pembayaran = () => {
         .catch((error) => {
           console.error("Gagal menyimpan data:", error);
           Alert.alert("Gagal menyimpan data!");
+          setIsLoading(false);
         });
     } catch (error) {
       console.error("Terjadi kesalahan:", error);
       Alert.alert("Terjadi kesalahan!");
+      setIsLoading(false);
     }
   };
 
@@ -415,10 +421,7 @@ const Pembayaran = () => {
 
             <Modal isOpen={modal} onClose={() => setModal(false)}>
               <Modal.Content>
-                <Modal.Header>
-                  Proses Pengiriman Form
-                  <Ionicons></Ionicons>
-                </Modal.Header>
+                <Modal.Header>Proses Pengiriman Form</Modal.Header>
                 <Modal.Body>
                   <Box
                     backgroundColor={"white"}
@@ -431,14 +434,18 @@ const Pembayaran = () => {
                       berkendala silakan konfirmasi kembali agar dibantu lebih
                       lanjut. Terima kasih.
                     </Text>
-                    <Button
-                      m={6}
-                      borderRadius={10}
-                      onPress={sendDataToFirebase}
-                      backgroundColor={"#006664"}
-                    >
-                      <Heading color={"white"}>OK</Heading>
-                    </Button>
+                    {isLoading ? (
+                      <Spinner color="#006664" />
+                    ) : (
+                      <Button
+                        m={6}
+                        borderRadius={10}
+                        onPress={sendDataToFirebase}
+                        backgroundColor={"#006664"}
+                      >
+                        <Heading color={"white"}>OK</Heading>
+                      </Button>
+                    )}
                   </Box>
                 </Modal.Body>
               </Modal.Content>
