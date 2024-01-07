@@ -14,13 +14,16 @@ import {
 } from "native-base";
 import React, { useState, useEffect } from "react";
 import FIREBASE from "../config/FIREBASE";
-import ScreenTop from "../components/ScreenTop";
+import ScreenTop from "../components/ScreenTop2";
 import { Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
 
 const Pembayaran = () => {
+  const route = useRoute();
+  const [error, setError] = useState(null);
+  const { cartItems, totalHarga } = route.params;
   const [Nama, setNama] = useState("");
   const [NoTelpon, setnoTelpon] = useState("");
   const [Email, setEmail] = useState("");
@@ -34,8 +37,6 @@ const Pembayaran = () => {
   const [selectedProvince, setSelectedProvince] = useState("");
   const [selectedRegency, setSelectedRegency] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
-  const route = useRoute();
-  const { cartItems, totalHarga } = route.params;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -62,17 +63,16 @@ const Pembayaran = () => {
     const fetchProvinces = async () => {
       try {
         const response = await fetch(
-          "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+          `https://api.goapi.io/regional/provinsi?api_key=92fc6e7e-10dc-5d95-4a43-e963da73`
         );
         if (response.ok) {
           const data = await response.json();
-          setProvinces(data);
+          setProvinces(data.data); //simpan data provinsi ke state
         } else {
           throw new Error("Gagal mengambil data provinsi");
         }
       } catch (error) {
         console.error(error);
-        // Handle error, bisa menampilkan pesan kepada pengguna
       }
     };
 
@@ -82,28 +82,27 @@ const Pembayaran = () => {
   const fetchRegencies = async (provinceId) => {
     try {
       const response = await fetch(
-        `https://emsifa.github.io/api-wilayah-indonesia/api/regencies/${provinceId}.json`
+        `https://api.goapi.io/regional/kota?provinsi_id=${provinceId}&api_key=92fc6e7e-10dc-5d95-4a43-e963da73`
       );
       if (response.ok) {
         const data = await response.json();
-        setRegencies(data);
+        setRegencies(data.data); // Simpan data kota ke state
       } else {
-        throw new Error("Gagal mengambil data kabupaten/kota");
+        throw new Error("Gagal mengambil data kota");
       }
     } catch (error) {
       console.error(error);
       // Handle error
     }
   };
-
   const fetchDistricts = async (regencyId) => {
     try {
       const response = await fetch(
-        `https://emsifa.github.io/api-wilayah-indonesia/api/districts/${regencyId}.json`
+        `https://api.goapi.io/regional/kecamatan?kota_id=${regencyId}&api_key=92fc6e7e-10dc-5d95-4a43-e963da73`
       );
       if (response.ok) {
         const data = await response.json();
-        setDistricts(data);
+        setDistricts(data.data); // Simpan data kecamatan ke state
       } else {
         throw new Error("Gagal mengambil data kecamatan");
       }
@@ -112,15 +111,16 @@ const Pembayaran = () => {
       // Handle error
     }
   };
+
   const handleProvinceChange = (provinceId) => {
     setSelectedProvince(provinceId);
-    setSelectedRegency("");
-    fetchRegencies(provinceId);
+    setSelectedRegency(""); // Reset kota yang dipilih saat mengganti provinsi
+    fetchRegencies(provinceId); // Ambil data kota berdasarkan provinsi yang dipilih
   };
-
   const handleRegencyChange = (regencyId) => {
     setSelectedRegency(regencyId);
-    fetchDistricts(regencyId);
+    setSelectedDistrict(""); // Reset kecamatan yang dipilih saat mengganti kota
+    fetchDistricts(regencyId); // Ambil data kecamatan berdasarkan ID kota yang dipilih
   };
 
   const handleModalOpen = () => {
@@ -159,8 +159,8 @@ const Pembayaran = () => {
       uploadImage()
         .then((imageUrl) => {
           const pesananData = {
-            totalHarga: totalHarga, 
-            userEmail: Email, 
+            totalHarga: totalHarga,
+            userEmail: Email,
             timestamp: FIREBASE.database.ServerValue.TIMESTAMP,
             products: {}, // Buat objek kosong untuk menyimpan data produk
             imageUrl,
@@ -224,6 +224,7 @@ const Pembayaran = () => {
       console.log("Pemilihan gambar dibatalkan");
     }
   };
+
   const formatToRupiah = (amount) => {
     return new Intl.NumberFormat("id-ID", { currency: "IDR" }).format(amount);
   };
@@ -294,16 +295,16 @@ const Pembayaran = () => {
                 shadow={4}
               >
                 <Select.Item label="Pilih Provinsi" value="" />
-                {provinces.map((province) => (
-                  <Select.Item
-                    key={province.id}
-                    label={province.name}
-                    value={province.id}
-                    onChangeText={setProvinces}
-                  />
-                ))}
+                {provinces &&
+                  provinces.length > 0 &&
+                  provinces.map((province) => (
+                    <Select.Item
+                      key={province.id}
+                      label={province.name}
+                      value={province.id}
+                    />
+                  ))}
               </Select>
-
               <FormControl.Label> Kabupaten/Kota </FormControl.Label>
               <Select
                 selectedValue={selectedRegency}
@@ -313,17 +314,17 @@ const Pembayaran = () => {
                 shadow={4}
               >
                 <Select.Item label="Pilih Kabupaten/Kota" value="" />
-                {regencies.map((regency) => (
-                  <Select.Item
-                    key={regency.id}
-                    label={regency.name}
-                    value={regency.id}
-                    onChangeText={setRegencies}
-                  />
-                ))}
+                {/* Menampilkan opsi kota */}
+                {regencies &&
+                  regencies.map((regency) => (
+                    <Select.Item
+                      key={regency.id}
+                      label={regency.name}
+                      value={regency.id}
+                    />
+                  ))}
               </Select>
-
-              <FormControl.Label> Kecamatan/District </FormControl.Label>
+              <FormControl.Label> Kecamatan </FormControl.Label>
               <Select
                 selectedValue={selectedDistrict}
                 onValueChange={(itemValue) => setSelectedDistrict(itemValue)}
@@ -331,15 +332,16 @@ const Pembayaran = () => {
                 backgroundColor={"white"}
                 shadow={4}
               >
-                <Select.Item label="Pilih Kecamatan/District" value="" />
-                {districts.map((district) => (
-                  <Select.Item
-                    key={district.id}
-                    label={district.name}
-                    value={district.id}
-                    onChangeText={setDistricts}
-                  />
-                ))}
+                <Select.Item label="Pilih Kecamatan" value="" />
+                {/* Menampilkan opsi kecamatan */}
+                {districts &&
+                  districts.map((district) => (
+                    <Select.Item
+                      key={district.id}
+                      label={district.name}
+                      value={district.id}
+                    />
+                  ))}
               </Select>
               <FormControl.Label>
                 {" "}
@@ -410,6 +412,7 @@ const Pembayaran = () => {
             >
               Kirim Bukti
             </Button>
+
             <Modal isOpen={modal} onClose={() => setModal(false)}>
               <Modal.Content>
                 <Modal.Header>
@@ -441,6 +444,11 @@ const Pembayaran = () => {
               </Modal.Content>
             </Modal>
           </Center>
+          {error && ( // Menampilkan pesan error jika ada error
+            <Box backgroundColor="red.500" p={4} rounded={5} mt={4}>
+              <Text color="white">{error}</Text>
+            </Box>
+          )}
         </Box>
       </ScrollView>
     </>
