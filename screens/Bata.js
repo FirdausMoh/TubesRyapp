@@ -6,6 +6,7 @@ import {
   Input,
   HStack,
   Text,
+  Center,
 } from "native-base";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -44,7 +45,7 @@ const Bata = () => {
             };
             const storage = getStorage();
             const imageRef = storageRef(
-              storage, 
+              storage,
               `images/${product.gambar}.jpg`
             );
             const imageUrl = await getDownloadURL(imageRef);
@@ -68,27 +69,30 @@ const Bata = () => {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
-        activeOpacity={0.5}
-        onPress={() => navigation.navigate("Detail Product", { item })}
-      >
+      activeOpacity={0.5}
+      onPress={() => navigation.navigate("Detail Product", { item: item })}
+    >
+      <Box>
         <Box
           shadow={5}
           backgroundColor={"#FFFFFF"}
-          mx={2}
+          mx={Platform.OS === "ios" ? 2 : 3} //buat ios
           my={2}
           borderRadius={5}
           flexDirection={"column"}
-          w={190}
+          w={Platform.OS === "ios" ? 185 : 155} //buat ios
           h={180}
         >
           <Box backgroundColor={"gray.200"} py={2}>
-            <Image
-              source={{ uri: item.gambar }}
-              w="full"
-              h="100"
-              resizeMode="contain"
-              alt="ImageData"
-            />
+            <Center>
+              <Image
+                source={{ uri: item.gambar }}
+                w="100"
+                h="100"
+                resizeMode="contain"
+                alt="Image Data"
+              />
+            </Center>
           </Box>
           <Box p={2}>
             <Text fontSize={"12"} fontWeight={"semibold"} color={"black"}>
@@ -99,7 +103,8 @@ const Bata = () => {
             </Heading>
           </Box>
         </Box>
-      </TouchableOpacity>
+      </Box>
+    </TouchableOpacity>
     );
   };
 
@@ -125,13 +130,12 @@ const Bata = () => {
             placeholderTextColor={"#006664"}
             value={searchText}
             onChangeText={(text) => setSearchText(text)}
-            py={2}
-            px={3}
-            flex={1}
+            w="100%"
+            h={10}
             borderRadius={10}
             bgColor="white"
           />
-          <TouchableOpacity onPress={() => navigation.navigate("Keranjang")}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate("Keranjang")}>
             <Box
               px={3}
               py={2}
@@ -142,7 +146,7 @@ const Bata = () => {
             >
               <Ionicons name="cart-sharp" size={20} color="#006664" />
             </Box>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </HStack>
         <Box backgroundColor={"white"} py={3} mb={3}>
           <Text ml={7} fontWeight={"bold"} color={"#006664"}>
@@ -157,7 +161,7 @@ const Bata = () => {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         numColumns={2}
-        columnWrapperStyle={{ justifyContent: "space-evenly" }}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
       />
     </>
   );

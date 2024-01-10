@@ -37,6 +37,7 @@ const Profile = () => {
 
         const user = firebase.auth().currentUser;
         if (user) {
+
           setUserLoggedIn(true);
           const userRef = firebase.database().ref(users/${user.uid});
           userRef.on('value', (snapshot) => {
@@ -91,7 +92,7 @@ const Profile = () => {
     try {
       const user = firebase.auth().currentUser;
       if (user) {
-        const userRef = firebase.database().ref(users/${user.uid});
+        const userRef = firebase.database().ref(`users/${user.uid}`);
         await userRef.update(updatedUserData);
 
         // Change password logic
@@ -116,6 +117,7 @@ const Profile = () => {
   return (
     <View flex={1} backgroundColor={"white"}>
       <VStack>
+
         <Box
           backgroundColor={"#078684"}
           h={Platform.OS === "ios" ? "47%" : "44%"}
@@ -138,6 +140,7 @@ const Profile = () => {
           </Center>
         </Box>
         <Box
+
           bottom={Platform.OS === "ios" ? 20 : "70px"}
           left={0}
           right={0}
