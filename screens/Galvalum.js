@@ -12,14 +12,8 @@ import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScreenTop } from "../components";
 import { useState, useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
-import FIREBASE from "../config/FIREBASE";
 import { getDatabase, ref, onValue } from "firebase/database";
-import {
-  getStorage,
-  ref as storageRef,
-  getDownloadURL,
-} from "firebase/storage";
+import {getStorage,ref as storageRef,getDownloadURL,} from "firebase/storage";
 
 const Galvalum = () => {
   const navigation = useNavigation();
@@ -135,18 +129,7 @@ const Galvalum = () => {
             borderRadius={10}
             bgColor="white"
           />
-          {/* <TouchableOpacity onPress={() => navigation.navigate("Keranjang")}>
-            <Box
-              px={3}
-              py={2}
-              borderRadius={10}
-              bgColor="white"
-              shadow={5}
-              marginLeft={3}
-            >
-              <Ionicons name="cart-sharp" size={20} color="#006664" />
-            </Box>
-          </TouchableOpacity> */}
+
         </HStack>
         <Box backgroundColor={"white"} py={3} mb={3}>
           <Text ml={7} fontWeight={"bold"} color={"#006664"}>
