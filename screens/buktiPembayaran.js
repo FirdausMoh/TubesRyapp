@@ -13,6 +13,7 @@ import {
   Select,
   Spinner,
 } from "native-base";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import FIREBASE from "../config/FIREBASE";
 import ScreenTop from "../components/ScreenTop2";
@@ -20,10 +21,11 @@ import { Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRoute } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Pembayaran = () => {
+  const navigation = useNavigation();
   const route = useRoute();
-  const [error, setError] = useState(null);
   const { cartItems, totalHarga } = route.params;
   const [Nama, setNama] = useState("");
   const [NoTelpon, setnoTelpon] = useState("");
@@ -43,24 +45,33 @@ const Pembayaran = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = FIREBASE.auth().currentUser;
-        if (user) {
-          const userRef = FIREBASE.database().ref(`users/${user.uid}`);
-          userRef.once("value", (snapshot) => {
-            const userDataFromDatabase = snapshot.val();
-            setNama(userDataFromDatabase.nama);
-            setnoTelpon(userDataFromDatabase.nohp);
-            setEmail(userDataFromDatabase.email);
-          });
+        const storedUserData = await AsyncStorage.getItem('userData');
+        if (storedUserData) {
+          const userDataFromStorage = JSON.parse(storedUserData);
+          setNama(userDataFromStorage.nama);
+          setnoTelpon(userDataFromStorage.nohp);
+          setEmail(userDataFromStorage.email);
         } else {
-          console.log("User not logged in!");
+          const user = FIREBASE.auth().currentUser;
+          if (user) {
+            const userRef = FIREBASE.database().ref(`users/${user.uid}`);
+            userRef.once("value", (snapshot) => {
+              const userDataFromDatabase = snapshot.val();
+              setNama(userDataFromDatabase.nama);
+              setnoTelpon(userDataFromDatabase.nohp);
+              setEmail(userDataFromDatabase.email);
+            });
+          } else {
+            console.log("User not logged in!");
+          }
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
-
+  
     fetchUserData();
+
 
     const fetchProvinces = async () => {
       try {
@@ -179,9 +190,9 @@ const Pembayaran = () => {
           });
 
           // Simpan data ke Firebase Database
-          FIREBASE.database().ref("pesanan").push(pesananData);
-
-          console.log("Data berhasil terkirim ke Firebase!");
+          FIREBASE.database().ref("pesanan").push(pesananData)
+          .then(() => {
+            console.log("Data berhasil terkirim ke Firebase!");
           setModal(false);
           setIsLoading(false);
 
@@ -196,6 +207,8 @@ const Pembayaran = () => {
           setDistricts([]);
           setImage(null);
         })
+        navigation.replace('Keranjang');
+      })
         .catch((error) => {
           console.error("Gagal menyimpan data:", error);
           Alert.alert("Gagal menyimpan data!");
@@ -223,7 +236,7 @@ const Pembayaran = () => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       // Menggunakan kunci "assets" untuk mengakses gambar yang dipilih
       setImage(result.assets[0].uri);
     } else {
@@ -451,11 +464,6 @@ const Pembayaran = () => {
               </Modal.Content>
             </Modal>
           </Center>
-          {error && ( // Menampilkan pesan error jika ada error
-            <Box backgroundColor="red.500" p={4} rounded={5} mt={4}>
-              <Text color="white">{error}</Text>
-            </Box>
-          )}
         </Box>
       </ScrollView>
     </>

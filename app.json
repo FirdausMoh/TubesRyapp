@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RyappFix",
-    "slug": "RyappFix",
+    "name": "Ryapp",
+    "slug": "RYAPP_v1",
     "plugins": [
       [
         "expo-image-picker",
@@ -12,23 +12,34 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ICONZ.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/JAAA.png"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/ICONZ.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.fahrifirdauus.RYAPP_v1"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c1ed1f98-5ae3-41cf-9b6f-acf0bd6d7901"
+      }
     }
   }
 }
