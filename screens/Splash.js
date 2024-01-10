@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react';
 import { View, Center, Box, Image } from 'native-base';
 import { getData } from '../utils';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Splash = ({ navigation }) => {
   useEffect(() => {
     const checkUserData = async () => {
       try {
-        const userData = await getData('user');
+        const userData = await AsyncStorage.getItem('userData');
         if (userData) {
-          navigation.replace('Login');
+          navigation.replace('Tabs'); // Jika ada data pengguna
         } else {
-          navigation.navigate('Login');
+          navigation.replace('Login'); // Jika tidak ada
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
         navigation.navigate('Login');
       }
     };
-
+  
     const timer = setTimeout(checkUserData, 3000);
-
+  
     return () => clearTimeout(timer);
   }, [navigation]);
 
