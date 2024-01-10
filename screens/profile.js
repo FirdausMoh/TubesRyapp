@@ -90,9 +90,9 @@ const Profile = () => {
   return (
     <View flex={1} backgroundColor={"white"}>
       <VStack>
-        <Box backgroundColor={"#078684"} h="47%">
+        <Box backgroundColor={"#078684"} h={Platform.OS === "ios" ? '47%' : '44%'} >
         
-          <Box backgroundColor={"#006664"} roundedBottom={200} h="50%">
+          <Box backgroundColor={"#006664"} roundedBottom={200} h='50%'>
             <Center mt={"10%"}>
               <Ionicons name="person-circle" size={100} color="black" />
               
@@ -111,7 +111,7 @@ const Profile = () => {
           </Center>
         </Box>
         <Box
-          bottom={20}
+          bottom={Platform.OS === "ios" ? 20 : '70px'}
           left={0}
           right={0}
           backgroundColor={"white"}
@@ -178,6 +178,7 @@ const Profile = () => {
             rounded={16}
             backgroundColor={"#006664"}
             onPress={handleLogout}
+            bottom={Platform.OS === "ios" ? 0 : 35} //buat ios
           >
             <Heading color={"white"}>Keluar</Heading>
           </Button>

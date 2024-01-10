@@ -56,11 +56,11 @@ const Tabs = () => {
         },
         tabBarIconStyle: { marginTop: 5 },
         tabBarStyle: {
-          height: 65,
+          height: '7%',
           width: "full",
           borderTopWidth: 0,
           backgroundColor: "#373737",
-          marginVertical: 20,
+          marginVertical: 10,
           marginHorizontal: 40,
           borderRadius: 15,
           position: "absolute",
