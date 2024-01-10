@@ -16,6 +16,7 @@ import {
 import { loginUser } from "../actions/AuthAction";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -42,6 +43,7 @@ const Login = ({ navigation }) => {
     loginUser(email, password)
       .then((user) => {
         // Pengguna berhasil login, lakukan sesuatu dengan data pengguna jika perlu
+        AsyncStorage.setItem("userData", JSON.stringify(user)); // Menyimpan data pengguna ke AsyncStorage
         navigation.replace("Tabs");
       })
       .catch((error) => {
