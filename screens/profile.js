@@ -6,11 +6,11 @@ import {
   Center,
   Heading,
   Button,
-  View, 
+  View,
   Modal,
   Input,
 } from "native-base";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,24 +22,37 @@ const Profile = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
+  
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        const storedUserData = await AsyncStorage.getItem('userData');
+        if (storedUserData) {
+          const userDataFromStorage = JSON.parse(storedUserData);
+          setUserData(userDataFromStorage);
+        }
+
         const user = firebase.auth().currentUser;
         if (user) {
+          setUserLoggedIn(true);
           const userRef = firebase.database().ref(users/${user.uid});
-          userRef.on("value", (snapshot) => {
+          userRef.on('value', (snapshot) => {
             const userDataFromDatabase = snapshot.val();
             setUserData(userDataFromDatabase);
+            AsyncStorage.setItem(
+              'userData',
+              JSON.stringify(userDataFromDatabase)
+            ); // Simpan data pengguna terbaru dari Firebase ke AsyncStorage
           });
         } else {
-          console.log("User not logged in!");
+          setUserLoggedIn(false);
+          console.log('User not logged in!');
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       }
     };
 
@@ -48,15 +61,30 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      await firebase.auth().signOut();
+      await AsyncStorage.removeItem("userData");
       navigation.replace("Login");
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
   const handleEditProfile = () => {
-    // Set showModal to true to display the edit modal
-    setShowModal(true);
+    // Jika user tidak login, tampilkan pesan peringatan
+    if (!userLoggedIn) {
+      Alert.alert(
+        'Peringatan',
+        'Anda harus login untuk mengedit profile.',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.replace('Login'),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      // Set showModal to true to display the edit modal
+      setShowModal(true);
+    }
   };
 
   const handleSaveProfile = async (updatedUserData) => {
@@ -85,23 +113,22 @@ const Profile = () => {
     }
   };
 
-
-
   return (
     <View flex={1} backgroundColor={"white"}>
       <VStack>
-        <Box backgroundColor={"#078684"} h="47%">
-        
+        <Box
+          backgroundColor={"#078684"}
+          h={Platform.OS === "ios" ? "47%" : "44%"}
+        >
           <Box backgroundColor={"#006664"} roundedBottom={200} h="50%">
             <Center mt={"10%"}>
               <Ionicons name="person-circle" size={100} color="black" />
-              
             </Center>
           </Box>
           <Center mt={2}>
             <Heading color={"white"}>
-                {userData ? userData.nama : "Nama"}
-              </Heading>
+              {userData ? userData.nama : "Nama"}
+            </Heading>
             <Text color={"white"} fontSize={20}>
               {userData ? userData.email : "email"}
             </Text>
@@ -111,7 +138,7 @@ const Profile = () => {
           </Center>
         </Box>
         <Box
-          bottom={20}
+          bottom={Platform.OS === "ios" ? 20 : "70px"}
           left={0}
           right={0}
           backgroundColor={"white"}
@@ -150,7 +177,7 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </Box>
-          <Box borderBottomWidth={1} borderColor={"gray.300"} p={3} >
+          <Box borderBottomWidth={1} borderColor={"gray.300"} p={3}>
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => navigation.navigate("Faq")}
@@ -160,11 +187,8 @@ const Profile = () => {
               </Text>
             </TouchableOpacity>
           </Box>
-          <Box  p={3}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={handleEditProfile}
-            >
+          <Box p={3}>
+            <TouchableOpacity activeOpacity={0.5} onPress={handleEditProfile}>
               <Text fontSize={"2xl"} fontWeight={"semibold"}>
                 Edit Profile
               </Text>
@@ -178,6 +202,7 @@ const Profile = () => {
             rounded={16}
             backgroundColor={"#006664"}
             onPress={handleLogout}
+            bottom={Platform.OS === "ios" ? 0 : 35} //buat ios
           >
             <Heading color={"white"}>Keluar</Heading>
           </Button>
@@ -223,7 +248,10 @@ const Profile = () => {
                   value={newPassword}
                   onChangeText={(text) => setNewPassword(text)}
                 />
-                <Button onPress={() => handleSaveProfile(userData)} backgroundColor={"#006664"}>
+                <Button
+                  onPress={() => handleSaveProfile(userData)}
+                  backgroundColor={"#006664"}
+                >
                   Simpan
                 </Button>
               </VStack>
